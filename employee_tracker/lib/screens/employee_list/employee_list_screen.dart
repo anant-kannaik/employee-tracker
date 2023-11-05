@@ -22,6 +22,9 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
         onPressed: () {
           Navigator.pushNamed(context, addEmployeeDetailsScreenRouteName);
         },
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+        ),
         child: const Icon(Icons.add),
       ),
     );
