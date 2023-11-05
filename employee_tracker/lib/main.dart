@@ -1,9 +1,11 @@
+import 'package:employee_tracker/repository/database_helper.dart';
 import 'package:employee_tracker/routes.dart';
 import 'package:employee_tracker/utils/constants.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await DatabaseHelper.sharedInstance.init();
   runApp(const MyApp());
 }
 

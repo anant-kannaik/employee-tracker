@@ -1,3 +1,5 @@
+import 'package:employee_tracker/models/employee.dart';
+import 'package:employee_tracker/repository/database_helper.dart';
 import 'package:employee_tracker/utils/app_colors.dart';
 import 'package:employee_tracker/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -179,7 +181,17 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                             backgroundColor: MaterialStateProperty.all<Color>(
                                 AppColors.primaryColor),
                           ),
-                          onPressed: () {},
+                          onPressed: () async {
+                            var employee = Employee(
+                                id: 1,
+                                name: 'Anant',
+                                role: 'Flutter Developer',
+                                fromDate: '10-1-2023',
+                                toDate: '31-8-2023');
+
+                            await DatabaseHelper.sharedInstance
+                                .insertEmployee(employee);
+                          },
                           child: const Text(saveButtonText),
                         )
                       ],

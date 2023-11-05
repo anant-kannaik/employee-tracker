@@ -4,6 +4,9 @@ import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelper {
+  static final sharedInstance = DatabaseHelper._();
+  DatabaseHelper._();
+
   static const _databaseName = "employee_database.db";
   static const _databaseVersion = 1;
 
