@@ -161,7 +161,7 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                     child: Row(
                       children: [
                         const Expanded(child: SizedBox()),
-                        ElevatedButton(
+                        TextButton(
                           style: ButtonStyle(
                             foregroundColor: MaterialStateProperty.all<Color>(
                                 AppColors.primaryColor),
@@ -172,7 +172,13 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                           child: const Text(cancelButtonText),
                         ),
                         const SizedBox(width: 10.0),
-                        ElevatedButton(
+                        TextButton(
+                          style: ButtonStyle(
+                            foregroundColor:
+                                MaterialStateProperty.all<Color>(Colors.white),
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                AppColors.primaryColor),
+                          ),
                           onPressed: () {},
                           child: const Text(saveButtonText),
                         )

@@ -17,7 +17,7 @@ const noDateHintText = 'No date';
 const cancelButtonText = 'Cancel';
 const saveButtonText = 'Save';
 
-List<String> roleTypes = [
+const List<String> roleTypes = [
   'Product Designer',
   'Flutter Developer',
   'QA Tester',
