@@ -1,0 +1,21 @@
+import 'package:employee_tracker/screens/add_employee_details/add_employee_details_screen.dart';
+import 'package:employee_tracker/screens/employee_list/employee_list_screen.dart';
+import 'package:employee_tracker/utils/constants.dart';
+import 'package:flutter/material.dart';
+
+class Routes {
+  static Route? onGenerateRoute(RouteSettings settings) {
+    switch (settings.name) {
+      case employeeListScreenRouteName:
+        return MaterialPageRoute(
+          builder: (context) => const EmployeeListScreen(),
+        );
+      case addEmployeeDetailsScreenRouteName:
+        return MaterialPageRoute(
+          builder: (context) => const AddEmployeeDetailsScreen(),
+        );
+      default:
+        return null;
+    }
+  }
+}
