@@ -17,7 +17,12 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
         backgroundColor: AppColors.primaryColor,
         title: const Text(employeeListScreenTitle),
       ),
-      body: const Center(),
+      body: Center(
+        child: Image.asset(
+          noEmployeeImageName,
+          height: 250.0,
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.pushNamed(context, addEmployeeDetailsScreenRouteName);
