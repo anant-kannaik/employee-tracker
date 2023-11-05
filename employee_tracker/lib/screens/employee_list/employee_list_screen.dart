@@ -20,7 +20,7 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
       body: Center(
         child: Image.asset(
           noEmployeeImageName,
-          height: 250.0,
+          height: 220.0,
         ),
       ),
       floatingActionButton: FloatingActionButton(
