@@ -11,6 +11,19 @@ class AddEmployeeDetailsScreen extends StatefulWidget {
 }
 
 class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
+  final employeeNameController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    employeeNameController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +31,160 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
         backgroundColor: AppColors.primaryColor,
         title: const Text(addEmployeeDetailsScreenTitle),
       ),
-      body: const Center(),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 30.0),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: TextField(
+                  controller: employeeNameController,
+                  cursorColor: AppColors.primaryColor,
+                  decoration: const InputDecoration(
+                    labelText: employeeNameHintText,
+                    labelStyle: TextStyle(color: Colors.black54),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.black38,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.black38,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20.0),
+              DropdownMenu<String>(
+                width: MediaQuery.of(context).size.width * 0.90,
+                label: const Text(selectRoleHintText),
+                // initialSelection: _selectedBike,
+                onSelected: (String? value) {
+                  setState(() {
+                    // _selectedBike = value!;
+                  });
+                },
+                dropdownMenuEntries:
+                    roleTypes.map<DropdownMenuEntry<String>>((String value) {
+                  return DropdownMenuEntry<String>(value: value, label: value);
+                }).toList(),
+              ),
+              const SizedBox(height: 20.0),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 3,
+                      child: Container(
+                        padding: const EdgeInsets.all(10.0),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black38),
+                          color: Colors.transparent,
+                          borderRadius: BorderRadius.circular(4.0),
+                        ),
+                        child: const Row(
+                          children: [
+                            Icon(
+                              Icons.calendar_month,
+                              color: AppColors.primaryColor,
+                              size: 30.0,
+                            ),
+                            SizedBox(width: 5.0),
+                            Text(
+                              todayDateHintText,
+                              maxLines: 1,
+                              style: TextStyle(
+                                fontSize: 14.0,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const Expanded(
+                      flex: 1,
+                      child: Icon(
+                        Icons.arrow_forward,
+                        color: AppColors.primaryColor,
+                        size: 20.0,
+                      ),
+                    ),
+                    Expanded(
+                      flex: 3,
+                      child: Container(
+                        padding: const EdgeInsets.all(10.0),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black38),
+                          color: Colors.transparent,
+                          borderRadius: BorderRadius.circular(4.0),
+                        ),
+                        child: const Row(
+                          children: [
+                            Icon(
+                              Icons.calendar_month,
+                              color: AppColors.primaryColor,
+                              size: 30.0,
+                            ),
+                            SizedBox(width: 5.0),
+                            Text(
+                              noDateHintText,
+                              maxLines: 1,
+                              style: TextStyle(
+                                fontSize: 14.0,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      border: Border(
+                        top: BorderSide(
+                          color: Colors.black38,
+                          width: 1.0,
+                        ),
+                      ),
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 5.0, horizontal: 20.0),
+                    child: Row(
+                      children: [
+                        const Expanded(child: SizedBox()),
+                        ElevatedButton(
+                          style: ButtonStyle(
+                            foregroundColor: MaterialStateProperty.all<Color>(
+                                AppColors.primaryColor),
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                const Color(0xffEDF8FF)),
+                          ),
+                          onPressed: () {},
+                          child: const Text(cancelButtonText),
+                        ),
+                        const SizedBox(width: 10.0),
+                        ElevatedButton(
+                          onPressed: () {},
+                          child: const Text(saveButtonText),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
