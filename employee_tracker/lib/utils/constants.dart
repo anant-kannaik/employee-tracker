@@ -9,6 +9,7 @@ const employeeListScreenBlocKey = 'employeeListScreenBloc';
 
 const employeeListScreenTitle = 'Employee List';
 const addEmployeeDetailsScreenTitle = 'Add Employee Details';
+const editEmployeeDetailsScreenTitle = 'Edit Employee Details';
 
 const noEmployeeImageName = 'assets/no_employee_image.png';
 
