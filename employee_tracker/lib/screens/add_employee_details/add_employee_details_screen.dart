@@ -3,6 +3,7 @@ import 'package:employee_tracker/repository/database_helper.dart';
 import 'package:employee_tracker/utils/app_colors.dart';
 import 'package:employee_tracker/utils/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class AddEmployeeDetailsScreen extends StatefulWidget {
   const AddEmployeeDetailsScreen({super.key});
@@ -82,21 +83,24 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                     Expanded(
                       flex: 3,
                       child: Container(
-                        padding: const EdgeInsets.all(10.0),
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.black38),
                           color: Colors.transparent,
                           borderRadius: BorderRadius.circular(4.0),
                         ),
-                        child: const Row(
+                        child: Row(
                           children: [
-                            Icon(
-                              Icons.calendar_month,
-                              color: AppColors.primaryColor,
-                              size: 30.0,
+                            IconButton(
+                              onPressed: () {
+                                _showDateTimePickerDialog();
+                              },
+                              iconSize: 30.0,
+                              icon: const Icon(
+                                Icons.calendar_month,
+                                color: AppColors.primaryColor,
+                              ),
                             ),
-                            SizedBox(width: 5.0),
-                            Text(
+                            const Text(
                               todayDateHintText,
                               maxLines: 1,
                               style: TextStyle(
@@ -118,21 +122,24 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                     Expanded(
                       flex: 3,
                       child: Container(
-                        padding: const EdgeInsets.all(10.0),
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.black38),
                           color: Colors.transparent,
                           borderRadius: BorderRadius.circular(4.0),
                         ),
-                        child: const Row(
+                        child: Row(
                           children: [
-                            Icon(
-                              Icons.calendar_month,
-                              color: AppColors.primaryColor,
-                              size: 30.0,
+                            IconButton(
+                              onPressed: () {
+                                _showDateTimePickerDialog();
+                              },
+                              iconSize: 30.0,
+                              icon: const Icon(
+                                Icons.calendar_month,
+                                color: AppColors.primaryColor,
+                              ),
                             ),
-                            SizedBox(width: 5.0),
-                            Text(
+                            const Text(
                               noDateHintText,
                               maxLines: 1,
                               style: TextStyle(
@@ -170,7 +177,9 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                             backgroundColor: MaterialStateProperty.all<Color>(
                                 const Color(0xffEDF8FF)),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
                           child: const Text(cancelButtonText),
                         ),
                         const SizedBox(width: 10.0),
@@ -203,6 +212,140 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  _showDateTimePickerDialog() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: TextButton(
+                      style: ButtonStyle(
+                        foregroundColor: MaterialStateProperty.all<Color>(
+                            AppColors.primaryColor),
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                            const Color(0xffEDF8FF)),
+                      ),
+                      onPressed: () {},
+                      child: const Text('Today'),
+                    ),
+                  ),
+                  const SizedBox(width: 10.0),
+                  Expanded(
+                    child: TextButton(
+                      style: ButtonStyle(
+                        foregroundColor:
+                            MaterialStateProperty.all<Color>(Colors.white),
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                            AppColors.primaryColor),
+                      ),
+                      onPressed: () {},
+                      child: const Text('Next Monday'),
+                    ),
+                  )
+                ],
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextButton(
+                      style: ButtonStyle(
+                        foregroundColor: MaterialStateProperty.all<Color>(
+                            AppColors.primaryColor),
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                            const Color(0xffEDF8FF)),
+                      ),
+                      onPressed: () {},
+                      child: const Text('Next Tuesday'),
+                    ),
+                  ),
+                  const SizedBox(width: 10.0),
+                  Expanded(
+                    child: TextButton(
+                      style: ButtonStyle(
+                        foregroundColor:
+                            MaterialStateProperty.all<Color>(Colors.white),
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                            AppColors.primaryColor),
+                      ),
+                      onPressed: () {},
+                      child: const Text('After 1 week'),
+                    ),
+                  )
+                ],
+              ),
+              SizedBox(
+                width: 300.0,
+                height: 300.0,
+                child: SfDateRangePicker(
+                  onSelectionChanged: (dateRangePickerSelectionChangedArgs) {},
+                  selectionMode: DateRangePickerSelectionMode.single,
+                ),
+              ),
+              Container(
+                decoration: const BoxDecoration(
+                  border: Border(
+                    top: BorderSide(
+                      color: Colors.black38,
+                      width: 1.0,
+                    ),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    const Icon(
+                      Icons.calendar_month,
+                      color: AppColors.primaryColor,
+                      size: 20.0,
+                    ),
+                    const SizedBox(width: 5.0),
+                    const Expanded(
+                      child: Text(
+                        noDateHintText,
+                        maxLines: 1,
+                        style: TextStyle(
+                          fontSize: 14.0,
+                        ),
+                      ),
+                    ),
+                    TextButton(
+                      style: ButtonStyle(
+                        foregroundColor: MaterialStateProperty.all<Color>(
+                            AppColors.primaryColor),
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                            const Color(0xffEDF8FF)),
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text(cancelButtonText),
+                    ),
+                    const SizedBox(width: 10.0),
+                    TextButton(
+                      style: ButtonStyle(
+                        foregroundColor:
+                            MaterialStateProperty.all<Color>(Colors.white),
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                            AppColors.primaryColor),
+                      ),
+                      onPressed: () {},
+                      child: const Text(saveButtonText),
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
