@@ -4,6 +4,7 @@ import 'package:employee_tracker/blocs/employee_list_screen/employee_list_screen
 import 'package:employee_tracker/models/employee.dart';
 import 'package:employee_tracker/utils/app_colors.dart';
 import 'package:employee_tracker/utils/constants.dart';
+import 'package:employee_tracker/utils/utils.dart';
 import 'package:employee_tracker/widgets/employee_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,7 +24,7 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
   @override
   void initState() {
     _employeeListScreenBloc = BlocProvider.of<EmployeeListScreenBloc>(context);
-    _employeeListScreenBloc.add(FetchEmployeeListEvent());
+    _employeeListScreenBloc.add(FetchEmployeesEvent());
     super.initState();
   }
 
@@ -49,6 +50,15 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
               _currentEmployees.addAll(state.currentEmployees);
               _previousEmployees.addAll(state.previousEmployees);
             });
+          } else if (state is EmployeeListScreenDeletedState) {
+            setState(() {
+              if (state.isCurrentEmployee) {
+                _currentEmployees.remove(state.employee);
+              } else {
+                _previousEmployees.remove(state.employee);
+              }
+            });
+            showSnackBar(context, '${state.employee.name} deleted');
           }
         },
         child: SafeArea(
@@ -68,71 +78,86 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
   }
 
   _getEmployeeListView() {
-    return Column(
-      children: [
-        Expanded(
-          child: Column(
+    return _currentEmployees.isNotEmpty || _previousEmployees.isNotEmpty
+        ? Column(
             children: [
-              const Text(
-                'Current Employees',
-                style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+              Expanded(
+                child: Column(
+                  children: [
+                    const Text(
+                      'Current Employees',
+                      style: TextStyle(
+                          fontSize: 16.0, fontWeight: FontWeight.bold),
+                    ),
+                    _getCurrentEmployees(),
+                  ],
+                ),
               ),
-              _getCurrentEmployees(),
-            ],
-          ),
-        ),
-        Expanded(
-          child: Column(
-            children: [
-              const Text(
-                'Previous Employees',
-                style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+              Expanded(
+                child: Column(
+                  children: [
+                    const Text(
+                      'Previous Employees',
+                      style: TextStyle(
+                          fontSize: 16.0, fontWeight: FontWeight.bold),
+                    ),
+                    _getPreviousEmployees(),
+                  ],
+                ),
               ),
-              _getPreviousEmployees(),
             ],
-          ),
-        ),
-      ],
-    );
+          )
+        : Center(
+            child: Image.asset(
+              noEmployeeImageName,
+              height: 220.0,
+            ),
+          );
   }
 
   _getCurrentEmployees() {
-    return _currentEmployees.isNotEmpty
-        ? ListView.builder(
-            shrinkWrap: true,
-            itemCount: _currentEmployees.length,
-            itemBuilder: (BuildContext context, int index) {
-              return EmployeeListItem(
-                employee: _currentEmployees[index],
-                onItemTap: (trip) {},
-              );
-            },
-          )
-        : Center(
-            child: Image.asset(
-              noEmployeeImageName,
-              height: 220.0,
-            ),
-          );
+    return ListView.builder(
+      shrinkWrap: true,
+      itemCount: _currentEmployees.length,
+      itemBuilder: (BuildContext context, int index) {
+        final item = _currentEmployees[index];
+        return Dismissible(
+          key: Key(item.id.toString()),
+          onDismissed: (direction) {
+            BlocProvider.of<EmployeeListScreenBloc>(context).add(
+              DeleteEmployeeEvent(isCurrentEmployee: true, employee: item),
+            );
+          },
+          background: Container(color: Colors.red),
+          child: EmployeeListItem(
+            employee: _currentEmployees[index],
+            onItemTap: (employee) {},
+          ),
+        );
+      },
+    );
   }
 
   _getPreviousEmployees() {
-    return _previousEmployees.isNotEmpty
-        ? ListView.builder(
-            shrinkWrap: true,
-            itemCount: _previousEmployees.length,
-            itemBuilder: (BuildContext context, int index) {
-              return EmployeeListItem(
-                employee: _previousEmployees[index],
-                onItemTap: (trip) {},
-              );
-            },
-          )
-        : Center(
-            child: Image.asset(
-              noEmployeeImageName,
-              height: 220.0,
-            ),
-          );
+    return ListView.builder(
+      shrinkWrap: true,
+      itemCount: _previousEmployees.length,
+      itemBuilder: (BuildContext context, int index) {
+        final item = _previousEmployees[index];
+        return Dismissible(
+          key: Key(item.id.toString()),
+          onDismissed: (direction) {
+            BlocProvider.of<EmployeeListScreenBloc>(context).add(
+              DeleteEmployeeEvent(isCurrentEmployee: false, employee: item),
+            );
+          },
+          background: Container(color: Colors.red),
+          child: EmployeeListItem(
+            employee: _previousEmployees[index],
+            onItemTap: (employee) {},
+          ),
+        );
+      },
+    );
   }
 }

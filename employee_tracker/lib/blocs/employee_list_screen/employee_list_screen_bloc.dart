@@ -7,11 +7,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class EmployeeListScreenBloc
     extends Bloc<EmployeeListScreenEvent, EmployeeListScreenState> {
   EmployeeListScreenBloc() : super(EmployeeListScreenInitialState()) {
-    on<FetchEmployeeListEvent>(_handleFetchEmployeeList);
+    on<FetchEmployeesEvent>(_handleFetchEmployees);
+    on<DeleteEmployeeEvent>(_handleDeleteEmployee);
   }
 
-  void _handleFetchEmployeeList(FetchEmployeeListEvent event,
-      Emitter<EmployeeListScreenState> emit) async {
+  void _handleFetchEmployees(
+      FetchEmployeesEvent event, Emitter<EmployeeListScreenState> emit) async {
     emit(EmployeeListScreenLoadingState());
 
     List<Employee> currentEmployees =
@@ -23,5 +24,13 @@ class EmployeeListScreenBloc
     emit(EmployeeListScreenFetchedState(
         currentEmployees: currentEmployees,
         previousEmployees: previousEmployees));
+  }
+
+  void _handleDeleteEmployee(
+      DeleteEmployeeEvent event, Emitter<EmployeeListScreenState> emit) async {
+    await DatabaseHelper.sharedInstance.deleteEmployee(event.employee.id!);
+
+    emit(EmployeeListScreenDeletedState(
+        isCurrentEmployee: event.isCurrentEmployee, employee: event.employee));
   }
 }

@@ -13,3 +13,11 @@ class EmployeeListScreenFetchedState extends EmployeeListScreenState {
   EmployeeListScreenFetchedState(
       {required this.currentEmployees, required this.previousEmployees});
 }
+
+class EmployeeListScreenDeletedState extends EmployeeListScreenState {
+  final bool isCurrentEmployee;
+  final Employee employee;
+
+  EmployeeListScreenDeletedState(
+      {required this.isCurrentEmployee, required this.employee});
+}

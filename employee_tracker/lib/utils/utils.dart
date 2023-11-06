@@ -1,5 +1,14 @@
 import 'package:employee_tracker/utils/constants.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
+void showSnackBar(BuildContext context, String content) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(content),
+    ),
+  );
+}
 
 String getFormattedDateTime(DateTime dateTime) {
   return DateFormat(dateFormat).format(dateTime);
