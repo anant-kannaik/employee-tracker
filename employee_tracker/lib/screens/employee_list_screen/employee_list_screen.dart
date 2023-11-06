@@ -58,7 +58,7 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
                 _previousEmployees.remove(state.employee);
               }
             });
-            showSnackBar(context, '${state.employee.name} deleted');
+            showSnackBar(context, 'Employee data has been deleted');
           }
         },
         child: SafeArea(
