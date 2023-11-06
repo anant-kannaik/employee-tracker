@@ -97,7 +97,7 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                             IconButton(
                               onPressed: () {
                                 _showDateTimePickerDialog(
-                                    true, _selectedFromDate);
+                                    true, DateSelection.today);
                               },
                               iconSize: 30.0,
                               icon: const Icon(
@@ -136,7 +136,7 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                             IconButton(
                               onPressed: () {
                                 _showDateTimePickerDialog(
-                                    false, _selectedToDate);
+                                    false, DateSelection.noDate);
                               },
                               iconSize: 30.0,
                               icon: const Icon(
@@ -217,8 +217,9 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
     );
   }
 
-  _showDateTimePickerDialog(bool isFromDate, String preSelectedDate) {
-    String selectedDate = preSelectedDate;
+  _showDateTimePickerDialog(bool isFromDate, DateSelection preSelectedDate) {
+    DateSelection selectedButton = preSelectedDate;
+    String selectedDate = '';
 
     showDialog(
       context: context,
@@ -235,26 +236,42 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                       children: [
                         Expanded(
                           child: TextButton(
-                            style: ButtonStyle(
-                              foregroundColor: MaterialStateProperty.all<Color>(
-                                  AppColors.primaryColor),
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  const Color(0xffEDF8FF)),
+                            style: TextButton.styleFrom(
+                              backgroundColor:
+                                  selectedButton == DateSelection.today
+                                      ? AppColors.primaryColor
+                                      : const Color(0xffEDF8FF),
+                              foregroundColor:
+                                  selectedButton == DateSelection.today
+                                      ? const Color(0xffEDF8FF)
+                                      : AppColors.primaryColor,
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              setState(() {
+                                selectedButton = DateSelection.today;
+                              });
+                            },
                             child: const Text('Today'),
                           ),
                         ),
                         const SizedBox(width: 10.0),
                         Expanded(
                           child: TextButton(
-                            style: ButtonStyle(
-                              foregroundColor: MaterialStateProperty.all<Color>(
-                                  Colors.white),
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  AppColors.primaryColor),
+                            style: TextButton.styleFrom(
+                              backgroundColor:
+                                  selectedButton == DateSelection.nextMonday
+                                      ? AppColors.primaryColor
+                                      : const Color(0xffEDF8FF),
+                              foregroundColor:
+                                  selectedButton == DateSelection.nextMonday
+                                      ? const Color(0xffEDF8FF)
+                                      : AppColors.primaryColor,
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              setState(() {
+                                selectedButton = DateSelection.nextMonday;
+                              });
+                            },
                             child: const Text('Next Monday'),
                           ),
                         )
@@ -264,26 +281,42 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                       children: [
                         Expanded(
                           child: TextButton(
-                            style: ButtonStyle(
-                              foregroundColor: MaterialStateProperty.all<Color>(
-                                  AppColors.primaryColor),
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  const Color(0xffEDF8FF)),
+                            style: TextButton.styleFrom(
+                              backgroundColor:
+                                  selectedButton == DateSelection.nextTuesday
+                                      ? AppColors.primaryColor
+                                      : const Color(0xffEDF8FF),
+                              foregroundColor:
+                                  selectedButton == DateSelection.nextTuesday
+                                      ? const Color(0xffEDF8FF)
+                                      : AppColors.primaryColor,
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              setState(() {
+                                selectedButton = DateSelection.nextTuesday;
+                              });
+                            },
                             child: const Text('Next Tuesday'),
                           ),
                         ),
                         const SizedBox(width: 10.0),
                         Expanded(
                           child: TextButton(
-                            style: ButtonStyle(
-                              foregroundColor: MaterialStateProperty.all<Color>(
-                                  Colors.white),
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  AppColors.primaryColor),
+                            style: TextButton.styleFrom(
+                              backgroundColor:
+                                  selectedButton == DateSelection.after1Week
+                                      ? AppColors.primaryColor
+                                      : const Color(0xffEDF8FF),
+                              foregroundColor:
+                                  selectedButton == DateSelection.after1Week
+                                      ? const Color(0xffEDF8FF)
+                                      : AppColors.primaryColor,
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              setState(() {
+                                selectedButton = DateSelection.after1Week;
+                              });
+                            },
                             child: const Text('After 1 week'),
                           ),
                         )
@@ -294,26 +327,42 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                       children: [
                         Expanded(
                           child: TextButton(
-                            style: ButtonStyle(
-                              foregroundColor: MaterialStateProperty.all<Color>(
-                                  AppColors.primaryColor),
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  const Color(0xffEDF8FF)),
+                            style: TextButton.styleFrom(
+                              backgroundColor:
+                                  selectedButton == DateSelection.noDate
+                                      ? AppColors.primaryColor
+                                      : const Color(0xffEDF8FF),
+                              foregroundColor:
+                                  selectedButton == DateSelection.noDate
+                                      ? const Color(0xffEDF8FF)
+                                      : AppColors.primaryColor,
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              setState(() {
+                                selectedButton = DateSelection.noDate;
+                              });
+                            },
                             child: const Text('No date'),
                           ),
                         ),
                         const SizedBox(width: 10.0),
                         Expanded(
                           child: TextButton(
-                            style: ButtonStyle(
-                              foregroundColor: MaterialStateProperty.all<Color>(
-                                  Colors.white),
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  AppColors.primaryColor),
+                            style: TextButton.styleFrom(
+                              backgroundColor:
+                                  selectedButton == DateSelection.today
+                                      ? AppColors.primaryColor
+                                      : const Color(0xffEDF8FF),
+                              foregroundColor:
+                                  selectedButton == DateSelection.today
+                                      ? const Color(0xffEDF8FF)
+                                      : AppColors.primaryColor,
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              setState(() {
+                                selectedButton = DateSelection.today;
+                              });
+                            },
                             child: const Text('Today'),
                           ),
                         )
@@ -321,7 +370,7 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                     ),
                   ],
                   SizedBox(
-                    width: 300.0,
+                    width: MediaQuery.of(context).size.width,
                     height: 300.0,
                     child: SfDateRangePicker(
                       onSelectionChanged:

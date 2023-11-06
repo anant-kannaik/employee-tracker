@@ -25,3 +25,5 @@ const List<String> roleTypes = [
 ];
 
 const dateFormat = 'dd MMM y';
+
+enum DateSelection { today, nextMonday, nextTuesday, after1Week, noDate }
