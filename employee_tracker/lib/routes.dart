@@ -1,3 +1,4 @@
+import 'package:employee_tracker/blocs/add_employee_details_screen/add_employee_details_screen_bloc.dart';
 import 'package:employee_tracker/blocs/employee_list_screen/employee_list_screen_bloc.dart';
 import 'package:employee_tracker/screens/add_employee_details_screen/add_employee_details_screen.dart';
 import 'package:employee_tracker/screens/employee_list_screen/employee_list_screen.dart';
@@ -17,7 +18,10 @@ class Routes {
         );
       case addEmployeeDetailsScreenRouteName:
         return MaterialPageRoute(
-          builder: (context) => const AddEmployeeDetailsScreen(),
+          builder: (context) => BlocProvider(
+            create: (context) => AddEmployeeDetailsScreenBloc(),
+            child: const AddEmployeeDetailsScreen(),
+          ),
         );
       default:
         return null;

@@ -1,6 +1,10 @@
+import 'package:employee_tracker/blocs/add_employee_details_screen/add_employee_details_screen_bloc.dart';
+import 'package:employee_tracker/blocs/add_employee_details_screen/add_employee_details_screen_event.dart';
 import 'package:employee_tracker/utils/app_colors.dart';
 import 'package:employee_tracker/utils/constants.dart';
+import 'package:employee_tracker/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class AddEmployeeDetailsScreen extends StatefulWidget {
@@ -13,6 +17,9 @@ class AddEmployeeDetailsScreen extends StatefulWidget {
 
 class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
   final employeeNameController = TextEditingController();
+  String? _selectedRole;
+  String? _selectedFromDate;
+  String? _selectedToDate;
 
   @override
   void initState() {
@@ -62,10 +69,9 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
               DropdownMenu<String>(
                 width: MediaQuery.of(context).size.width * 0.90,
                 label: const Text(selectRoleHintText),
-                // initialSelection: _selectedBike,
                 onSelected: (String? value) {
                   setState(() {
-                    // _selectedBike = value!;
+                    _selectedRole = value;
                   });
                 },
                 dropdownMenuEntries:
@@ -98,10 +104,10 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                                 color: AppColors.primaryColor,
                               ),
                             ),
-                            const Text(
-                              todayDateHintText,
+                            Text(
+                              _selectedFromDate ?? todayDateHintText,
                               maxLines: 1,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 14.0,
                               ),
                             ),
@@ -137,10 +143,10 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                                 color: AppColors.primaryColor,
                               ),
                             ),
-                            const Text(
-                              noDateHintText,
-                              maxLines: 1,
-                              style: TextStyle(
+                            Text(
+                              _selectedToDate ?? noDateHintText,
+                              // maxLines: 1,
+                              style: const TextStyle(
                                 fontSize: 14.0,
                               ),
                             ),
@@ -188,7 +194,15 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                             backgroundColor: MaterialStateProperty.all<Color>(
                                 AppColors.primaryColor),
                           ),
-                          onPressed: () async {},
+                          onPressed: () {
+                            BlocProvider.of<AddEmployeeDetailsScreenBloc>(
+                                    context)
+                                .add(InsertEmployeeEvent(
+                                    name: employeeNameController.text.trim(),
+                                    role: _selectedRole!,
+                                    fromDate: _selectedFromDate!,
+                                    toDate: _selectedToDate!));
+                          },
                           child: const Text(saveButtonText),
                         )
                       ],
@@ -274,7 +288,12 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                 width: 300.0,
                 height: 300.0,
                 child: SfDateRangePicker(
-                  onSelectionChanged: (dateRangePickerSelectionChangedArgs) {},
+                  onSelectionChanged: (dateRangePickerSelectionChangedArgs) {
+                    _selectedFromDate = getFormattedDateTime(
+                        dateRangePickerSelectionChangedArgs.value);
+                    _selectedToDate = getFormattedDateTime(
+                        dateRangePickerSelectionChangedArgs.value);
+                  },
                   selectionMode: DateRangePickerSelectionMode.single,
                 ),
               ),
@@ -324,7 +343,10 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                         backgroundColor: MaterialStateProperty.all<Color>(
                             AppColors.primaryColor),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        setState(() {});
+                        Navigator.pop(context);
+                      },
                       child: const Text(saveButtonText),
                     )
                   ],

@@ -1,5 +1,6 @@
 class Employee {
-  final int id;
+  final int?
+      id; // Explicitly assigning a value of NULL to id, it will get the next auto-increment value.
   final String name;
   final String role;
   final String fromDate;

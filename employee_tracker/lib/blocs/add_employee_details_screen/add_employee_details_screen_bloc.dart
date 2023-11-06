@@ -14,7 +14,7 @@ class AddEmployeeDetailsScreenBloc
   void _handleInsertEmployee(InsertEmployeeEvent event,
       Emitter<AddEmployeeDetailsScreenState> emit) async {
     Employee employee = Employee(
-        id: 0,
+        id: null, // Explicitly assigning a value of NULL to id, it will get the next auto-increment value.
         name: event.name,
         role: event.role,
         fromDate: event.fromDate,
