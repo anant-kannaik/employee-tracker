@@ -3,6 +3,8 @@ const appNameText = 'Employee Tracker';
 const employeeListScreenRouteName = '/EmployeeList';
 const addEmployeeDetailsScreenRouteName = '/AddEmployeeDetails';
 
+const employeeListScreenBlocKey = 'employeeListScreenBloc';
+
 const employeeListScreenTitle = 'Employee List';
 const addEmployeeDetailsScreenTitle = 'Add Employee Details';
 

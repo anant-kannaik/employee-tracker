@@ -17,10 +17,13 @@ class Routes {
           ),
         );
       case addEmployeeDetailsScreenRouteName:
+        Map<String, dynamic> arguments =
+            settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
             create: (context) => AddEmployeeDetailsScreenBloc(),
-            child: const AddEmployeeDetailsScreen(),
+            child: AddEmployeeDetailsScreen(
+                employeeListScreenBloc: arguments[employeeListScreenBlocKey]),
           ),
         );
       default:

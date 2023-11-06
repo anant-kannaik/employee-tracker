@@ -1,5 +1,8 @@
 import 'package:employee_tracker/blocs/add_employee_details_screen/add_employee_details_screen_bloc.dart';
 import 'package:employee_tracker/blocs/add_employee_details_screen/add_employee_details_screen_event.dart';
+import 'package:employee_tracker/blocs/add_employee_details_screen/add_employee_details_screen_state.dart';
+import 'package:employee_tracker/blocs/employee_list_screen/employee_list_screen_bloc.dart';
+import 'package:employee_tracker/blocs/employee_list_screen/employee_list_screen_event.dart';
 import 'package:employee_tracker/utils/app_colors.dart';
 import 'package:employee_tracker/utils/constants.dart';
 import 'package:employee_tracker/utils/utils.dart';
@@ -8,7 +11,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class AddEmployeeDetailsScreen extends StatefulWidget {
-  const AddEmployeeDetailsScreen({super.key});
+  final EmployeeListScreenBloc employeeListScreenBloc;
+
+  const AddEmployeeDetailsScreen(
+      {super.key, required this.employeeListScreenBloc});
 
   @override
   State<AddEmployeeDetailsScreen> createState() =>
@@ -39,178 +45,188 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
         backgroundColor: AppColors.primaryColor,
         title: const Text(addEmployeeDetailsScreenTitle),
       ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 30.0),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: TextField(
-                  controller: employeeNameController,
-                  cursorColor: AppColors.primaryColor,
-                  decoration: const InputDecoration(
-                    labelText: employeeNameHintText,
-                    labelStyle: TextStyle(color: Colors.black54),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.black38,
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.black38,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20.0),
-              DropdownMenu<String>(
-                width: MediaQuery.of(context).size.width * 0.90,
-                label: const Text(selectRoleHintText),
-                onSelected: (String? value) {
-                  setState(() {
-                    _selectedRole = value;
-                  });
-                },
-                dropdownMenuEntries:
-                    roleTypes.map<DropdownMenuEntry<String>>((String value) {
-                  return DropdownMenuEntry<String>(value: value, label: value);
-                }).toList(),
-              ),
-              const SizedBox(height: 20.0),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      flex: 3,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.black38),
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(4.0),
-                        ),
-                        child: Row(
-                          children: [
-                            IconButton(
-                              onPressed: () {
-                                _showDateTimePickerDialog(
-                                    true, DateSelection.today);
-                              },
-                              iconSize: 30.0,
-                              icon: const Icon(
-                                Icons.calendar_month,
-                                color: AppColors.primaryColor,
-                              ),
-                            ),
-                            Text(
-                              _selectedFromDate,
-                              style: const TextStyle(
-                                fontSize: 14.0,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    const Expanded(
-                      flex: 1,
-                      child: Icon(
-                        Icons.arrow_forward,
-                        color: AppColors.primaryColor,
-                        size: 20.0,
-                      ),
-                    ),
-                    Expanded(
-                      flex: 3,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.black38),
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(4.0),
-                        ),
-                        child: Row(
-                          children: [
-                            IconButton(
-                              onPressed: () {
-                                _showDateTimePickerDialog(
-                                    false, DateSelection.noDate);
-                              },
-                              iconSize: 30.0,
-                              icon: const Icon(
-                                Icons.calendar_month,
-                                color: AppColors.primaryColor,
-                              ),
-                            ),
-                            Text(
-                              _selectedToDate,
-                              style: const TextStyle(
-                                fontSize: 14.0,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      border: Border(
-                        top: BorderSide(
+      body: BlocListener<AddEmployeeDetailsScreenBloc,
+          AddEmployeeDetailsScreenState>(
+        listener: (BuildContext context, state) {
+          if (state is AddEmployeeDetailsScreenInsertedState) {
+            widget.employeeListScreenBloc.add(FetchEmployeesEvent());
+            Navigator.pop(context);
+          }
+        },
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.only(top: 30.0),
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: TextField(
+                    controller: employeeNameController,
+                    cursorColor: AppColors.primaryColor,
+                    decoration: const InputDecoration(
+                      labelText: employeeNameHintText,
+                      labelStyle: TextStyle(color: Colors.black54),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
                           color: Colors.black38,
-                          width: 1.0,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.black38,
                         ),
                       ),
                     ),
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 5.0, horizontal: 20.0),
-                    child: Row(
-                      children: [
-                        const Expanded(child: SizedBox()),
-                        TextButton(
-                          style: ButtonStyle(
-                            foregroundColor: MaterialStateProperty.all<Color>(
-                                AppColors.primaryColor),
-                            backgroundColor: MaterialStateProperty.all<Color>(
-                                const Color(0xffEDF8FF)),
-                          ),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Text(cancelButtonText),
-                        ),
-                        const SizedBox(width: 10.0),
-                        TextButton(
-                          style: ButtonStyle(
-                            foregroundColor:
-                                MaterialStateProperty.all<Color>(Colors.white),
-                            backgroundColor: MaterialStateProperty.all<Color>(
-                                AppColors.primaryColor),
-                          ),
-                          onPressed: () {
-                            BlocProvider.of<AddEmployeeDetailsScreenBloc>(
-                                    context)
-                                .add(InsertEmployeeEvent(
-                                    name: employeeNameController.text.trim(),
-                                    role: _selectedRole!,
-                                    fromDate: _selectedFromDate,
-                                    toDate: _selectedToDate));
-                          },
-                          child: const Text(saveButtonText),
-                        )
-                      ],
-                    ),
                   ),
                 ),
-              )
-            ],
+                const SizedBox(height: 20.0),
+                DropdownMenu<String>(
+                  width: MediaQuery.of(context).size.width * 0.90,
+                  label: const Text(selectRoleHintText),
+                  onSelected: (String? value) {
+                    setState(() {
+                      _selectedRole = value;
+                    });
+                  },
+                  dropdownMenuEntries:
+                      roleTypes.map<DropdownMenuEntry<String>>((String value) {
+                    return DropdownMenuEntry<String>(
+                        value: value, label: value);
+                  }).toList(),
+                ),
+                const SizedBox(height: 20.0),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 3,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black38),
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(4.0),
+                          ),
+                          child: Row(
+                            children: [
+                              IconButton(
+                                onPressed: () {
+                                  _showDateTimePickerDialog(
+                                      true, DateSelection.today);
+                                },
+                                iconSize: 30.0,
+                                icon: const Icon(
+                                  Icons.calendar_month,
+                                  color: AppColors.primaryColor,
+                                ),
+                              ),
+                              Text(
+                                _selectedFromDate,
+                                style: const TextStyle(
+                                  fontSize: 14.0,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const Expanded(
+                        flex: 1,
+                        child: Icon(
+                          Icons.arrow_forward,
+                          color: AppColors.primaryColor,
+                          size: 20.0,
+                        ),
+                      ),
+                      Expanded(
+                        flex: 3,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black38),
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(4.0),
+                          ),
+                          child: Row(
+                            children: [
+                              IconButton(
+                                onPressed: () {
+                                  _showDateTimePickerDialog(
+                                      false, DateSelection.noDate);
+                                },
+                                iconSize: 30.0,
+                                icon: const Icon(
+                                  Icons.calendar_month,
+                                  color: AppColors.primaryColor,
+                                ),
+                              ),
+                              Text(
+                                _selectedToDate,
+                                style: const TextStyle(
+                                  fontSize: 14.0,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        border: Border(
+                          top: BorderSide(
+                            color: Colors.black38,
+                            width: 1.0,
+                          ),
+                        ),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 5.0, horizontal: 20.0),
+                      child: Row(
+                        children: [
+                          const Expanded(child: SizedBox()),
+                          TextButton(
+                            style: ButtonStyle(
+                              foregroundColor: MaterialStateProperty.all<Color>(
+                                  AppColors.primaryColor),
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  const Color(0xffEDF8FF)),
+                            ),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Text(cancelButtonText),
+                          ),
+                          const SizedBox(width: 10.0),
+                          TextButton(
+                            style: ButtonStyle(
+                              foregroundColor: MaterialStateProperty.all<Color>(
+                                  Colors.white),
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  AppColors.primaryColor),
+                            ),
+                            onPressed: () {
+                              BlocProvider.of<AddEmployeeDetailsScreenBloc>(
+                                      context)
+                                  .add(InsertEmployeeEvent(
+                                      name: employeeNameController.text.trim(),
+                                      role: _selectedRole!,
+                                      fromDate: _selectedFromDate,
+                                      toDate: _selectedToDate));
+                            },
+                            child: const Text(saveButtonText),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),

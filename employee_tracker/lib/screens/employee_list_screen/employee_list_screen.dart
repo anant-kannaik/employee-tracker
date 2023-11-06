@@ -67,7 +67,13 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, addEmployeeDetailsScreenRouteName);
+          Navigator.pushNamed(
+            context,
+            addEmployeeDetailsScreenRouteName,
+            arguments: {
+              employeeListScreenBlocKey: _employeeListScreenBloc,
+            },
+          );
         },
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(10.0)),
