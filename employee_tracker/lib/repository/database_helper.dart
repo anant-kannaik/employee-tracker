@@ -42,8 +42,19 @@ class DatabaseHelper {
 
   // All of the rows are returned as a list of maps, where each map is
   // a key-value list of columns.
-  Future<List<Employee>> getEmployeeList() async {
-    final List<Map<String, dynamic>> maps = await _db.query(table);
+  Future<List<Employee>> getCurrentEmployees() async {
+    final List<Map<String, dynamic>> maps =
+        await _db.query(table, where: 'toDate = ?', whereArgs: ['No date']);
+    return List.generate(maps.length, (i) {
+      return Employee.fromMap(maps[i]);
+    });
+  }
+
+  // All of the rows are returned as a list of maps, where each map is
+  // a key-value list of columns.
+  Future<List<Employee>> getPreviousEmployees() async {
+    final List<Map<String, dynamic>> maps =
+        await _db.query(table, where: 'toDate != ?', whereArgs: ['No date']);
     return List.generate(maps.length, (i) {
       return Employee.fromMap(maps[i]);
     });

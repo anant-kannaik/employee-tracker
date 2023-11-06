@@ -16,7 +16,8 @@ class EmployeeListScreen extends StatefulWidget {
 }
 
 class _EmployeeListScreenState extends State<EmployeeListScreen> {
-  final List<Employee> _employeeList = [];
+  final List<Employee> _currentEmployees = [];
+  final List<Employee> _previousEmployees = [];
   late EmployeeListScreenBloc _employeeListScreenBloc;
 
   @override
@@ -43,8 +44,10 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
         listener: (BuildContext context, state) {
           if (state is EmployeeListScreenFetchedState) {
             setState(() {
-              _employeeList.clear();
-              _employeeList.addAll(state.employees);
+              _currentEmployees.clear();
+              _previousEmployees.clear();
+              _currentEmployees.addAll(state.currentEmployees);
+              _previousEmployees.addAll(state.previousEmployees);
             });
           }
         },
@@ -65,12 +68,62 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
   }
 
   _getEmployeeListView() {
-    return _employeeList.isNotEmpty
+    return Column(
+      children: [
+        Expanded(
+          child: Column(
+            children: [
+              const Text(
+                'Current Employees',
+                style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+              ),
+              _getCurrentEmployees(),
+            ],
+          ),
+        ),
+        Expanded(
+          child: Column(
+            children: [
+              const Text(
+                'Previous Employees',
+                style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+              ),
+              _getPreviousEmployees(),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  _getCurrentEmployees() {
+    return _currentEmployees.isNotEmpty
         ? ListView.builder(
-            itemCount: _employeeList.length,
+            shrinkWrap: true,
+            itemCount: _currentEmployees.length,
             itemBuilder: (BuildContext context, int index) {
               return EmployeeListItem(
-                employee: _employeeList[index],
+                employee: _currentEmployees[index],
+                onItemTap: (trip) {},
+              );
+            },
+          )
+        : Center(
+            child: Image.asset(
+              noEmployeeImageName,
+              height: 220.0,
+            ),
+          );
+  }
+
+  _getPreviousEmployees() {
+    return _previousEmployees.isNotEmpty
+        ? ListView.builder(
+            shrinkWrap: true,
+            itemCount: _previousEmployees.length,
+            itemBuilder: (BuildContext context, int index) {
+              return EmployeeListItem(
+                employee: _previousEmployees[index],
                 onItemTap: (trip) {},
               );
             },

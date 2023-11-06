@@ -14,9 +14,14 @@ class EmployeeListScreenBloc
       Emitter<EmployeeListScreenState> emit) async {
     emit(EmployeeListScreenLoadingState());
 
-    List<Employee> employees =
-        await DatabaseHelper.sharedInstance.getEmployeeList();
+    List<Employee> currentEmployees =
+        await DatabaseHelper.sharedInstance.getCurrentEmployees();
 
-    emit(EmployeeListScreenFetchedState(employees: employees));
+    List<Employee> previousEmployees =
+        await DatabaseHelper.sharedInstance.getPreviousEmployees();
+
+    emit(EmployeeListScreenFetchedState(
+        currentEmployees: currentEmployees,
+        previousEmployees: previousEmployees));
   }
 }

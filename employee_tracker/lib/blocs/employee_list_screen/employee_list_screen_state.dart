@@ -7,7 +7,9 @@ class EmployeeListScreenInitialState extends EmployeeListScreenState {}
 class EmployeeListScreenLoadingState extends EmployeeListScreenState {}
 
 class EmployeeListScreenFetchedState extends EmployeeListScreenState {
-  final List<Employee> employees;
+  final List<Employee> currentEmployees;
+  final List<Employee> previousEmployees;
 
-  EmployeeListScreenFetchedState({required this.employees});
+  EmployeeListScreenFetchedState(
+      {required this.currentEmployees, required this.previousEmployees});
 }
