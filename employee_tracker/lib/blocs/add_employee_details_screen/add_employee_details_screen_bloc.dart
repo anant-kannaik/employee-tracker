@@ -1,7 +1,7 @@
 import 'package:employee_tracker/blocs/add_employee_details_screen/add_employee_details_screen_event.dart';
 import 'package:employee_tracker/blocs/add_employee_details_screen/add_employee_details_screen_state.dart';
 import 'package:employee_tracker/models/employee.dart';
-import 'package:employee_tracker/repository/database_helper.dart';
+import 'package:employee_tracker/repository/employee_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddEmployeeDetailsScreenBloc
@@ -21,7 +21,7 @@ class AddEmployeeDetailsScreenBloc
         fromDate: event.fromDate,
         toDate: event.toDate);
 
-    await DatabaseHelper.sharedInstance.insertEmployee(employee);
+    await EmployeeRepository.sharedInstance.insertEmployee(employee);
 
     emit(AddEmployeeDetailsScreenInsertedState(employee: employee));
   }
@@ -34,7 +34,7 @@ class AddEmployeeDetailsScreenBloc
         role: event.role,
         fromDate: event.fromDate,
         toDate: event.toDate);
-    await DatabaseHelper.sharedInstance.updateEmployee(employee);
+    await EmployeeRepository.sharedInstance.updateEmployee(employee);
 
     emit(AddEmployeeDetailsScreenUpdatedState(employee: employee));
   }

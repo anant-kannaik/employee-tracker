@@ -1,7 +1,7 @@
 import 'package:employee_tracker/blocs/employee_list_screen/employee_list_screen_event.dart';
 import 'package:employee_tracker/blocs/employee_list_screen/employee_list_screen_state.dart';
 import 'package:employee_tracker/models/employee.dart';
-import 'package:employee_tracker/repository/database_helper.dart';
+import 'package:employee_tracker/repository/employee_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class EmployeeListScreenBloc
@@ -16,10 +16,10 @@ class EmployeeListScreenBloc
     emit(EmployeeListScreenLoadingState());
 
     List<Employee> currentEmployees =
-        await DatabaseHelper.sharedInstance.getCurrentEmployees();
+        await EmployeeRepository.sharedInstance.getCurrentEmployees();
 
     List<Employee> previousEmployees =
-        await DatabaseHelper.sharedInstance.getPreviousEmployees();
+        await EmployeeRepository.sharedInstance.getPreviousEmployees();
 
     emit(EmployeeListScreenFetchedState(
         currentEmployees: currentEmployees,
@@ -28,7 +28,7 @@ class EmployeeListScreenBloc
 
   void _handleDeleteEmployee(
       DeleteEmployeeEvent event, Emitter<EmployeeListScreenState> emit) async {
-    await DatabaseHelper.sharedInstance.deleteEmployee(event.employee.id!);
+    await EmployeeRepository.sharedInstance.deleteEmployee(event.employee.id!);
 
     emit(EmployeeListScreenDeletedState(
         isCurrentEmployee: event.isCurrentEmployee, employee: event.employee));
