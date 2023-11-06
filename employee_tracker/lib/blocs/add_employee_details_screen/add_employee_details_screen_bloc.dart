@@ -9,6 +9,7 @@ class AddEmployeeDetailsScreenBloc
   AddEmployeeDetailsScreenBloc()
       : super(AddEmployeeDetailsScreenInitialState()) {
     on<InsertEmployeeEvent>(_handleInsertEmployee);
+    on<UpdateEmployeeEvent>(_handleUpdateEmployee);
   }
 
   void _handleInsertEmployee(InsertEmployeeEvent event,
@@ -23,5 +24,18 @@ class AddEmployeeDetailsScreenBloc
     await DatabaseHelper.sharedInstance.insertEmployee(employee);
 
     emit(AddEmployeeDetailsScreenInsertedState(employee: employee));
+  }
+
+  void _handleUpdateEmployee(UpdateEmployeeEvent event,
+      Emitter<AddEmployeeDetailsScreenState> emit) async {
+    Employee employee = Employee(
+        id: event.id,
+        name: event.name,
+        role: event.role,
+        fromDate: event.fromDate,
+        toDate: event.toDate);
+    await DatabaseHelper.sharedInstance.updateEmployee(employee);
+
+    emit(AddEmployeeDetailsScreenUpdatedState(employee: employee));
   }
 }

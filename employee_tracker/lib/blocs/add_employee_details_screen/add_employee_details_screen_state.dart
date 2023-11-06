@@ -11,3 +11,10 @@ class AddEmployeeDetailsScreenInsertedState
 
   AddEmployeeDetailsScreenInsertedState({required this.employee});
 }
+
+class AddEmployeeDetailsScreenUpdatedState
+    extends AddEmployeeDetailsScreenState {
+  final Employee employee;
+
+  AddEmployeeDetailsScreenUpdatedState({required this.employee});
+}

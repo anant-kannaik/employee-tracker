@@ -78,6 +78,9 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
           if (state is AddEmployeeDetailsScreenInsertedState) {
             widget.employeeListScreenBloc.add(FetchEmployeesEvent());
             Navigator.pop(context);
+          } else if (state is AddEmployeeDetailsScreenUpdatedState) {
+            widget.employeeListScreenBloc.add(FetchEmployeesEvent());
+            Navigator.pop(context);
           }
         },
         child: SafeArea(
@@ -238,13 +241,26 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                                   AppColors.primaryColor),
                             ),
                             onPressed: () {
-                              BlocProvider.of<AddEmployeeDetailsScreenBloc>(
-                                      context)
-                                  .add(InsertEmployeeEvent(
-                                      name: _employeeNameController.text.trim(),
-                                      role: _selectedRole,
-                                      fromDate: _selectedFromDate,
-                                      toDate: _selectedToDate));
+                              if (widget.employee != null) {
+                                BlocProvider.of<AddEmployeeDetailsScreenBloc>(
+                                        context)
+                                    .add(UpdateEmployeeEvent(
+                                        id: widget.employee!.id!,
+                                        name:
+                                            _employeeNameController.text.trim(),
+                                        role: _selectedRole,
+                                        fromDate: _selectedFromDate,
+                                        toDate: _selectedToDate));
+                              } else {
+                                BlocProvider.of<AddEmployeeDetailsScreenBloc>(
+                                        context)
+                                    .add(InsertEmployeeEvent(
+                                        name:
+                                            _employeeNameController.text.trim(),
+                                        role: _selectedRole,
+                                        fromDate: _selectedFromDate,
+                                        toDate: _selectedToDate));
+                              }
                             },
                             child: const Text(saveButtonText),
                           )
