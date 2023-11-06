@@ -219,7 +219,7 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
 
   _showDateTimePickerDialog(bool isFromDate, DateSelection preSelectedDate) {
     DateSelection selectedButton = preSelectedDate;
-    String selectedDate = '';
+    String selectedDate = getDateForSelectedEnum(selectedButton);
 
     showDialog(
       context: context,
@@ -249,6 +249,8 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                             onPressed: () {
                               setState(() {
                                 selectedButton = DateSelection.today;
+                                selectedDate =
+                                    getDateForSelectedEnum(selectedButton);
                               });
                             },
                             child: const Text('Today'),
@@ -270,6 +272,8 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                             onPressed: () {
                               setState(() {
                                 selectedButton = DateSelection.nextMonday;
+                                selectedDate =
+                                    getDateForSelectedEnum(selectedButton);
                               });
                             },
                             child: const Text('Next Monday'),
@@ -294,6 +298,8 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                             onPressed: () {
                               setState(() {
                                 selectedButton = DateSelection.nextTuesday;
+                                selectedDate =
+                                    getDateForSelectedEnum(selectedButton);
                               });
                             },
                             child: const Text('Next Tuesday'),
@@ -315,6 +321,8 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                             onPressed: () {
                               setState(() {
                                 selectedButton = DateSelection.after1Week;
+                                selectedDate =
+                                    getDateForSelectedEnum(selectedButton);
                               });
                             },
                             child: const Text('After 1 week'),
@@ -340,6 +348,8 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                             onPressed: () {
                               setState(() {
                                 selectedButton = DateSelection.noDate;
+                                selectedDate =
+                                    getDateForSelectedEnum(selectedButton);
                               });
                             },
                             child: const Text('No date'),
@@ -361,6 +371,8 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                             onPressed: () {
                               setState(() {
                                 selectedButton = DateSelection.today;
+                                selectedDate =
+                                    getDateForSelectedEnum(selectedButton);
                               });
                             },
                             child: const Text('Today'),
@@ -378,6 +390,7 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                         setState(() {
                           selectedDate = getFormattedDateTime(
                               dateRangePickerSelectionChangedArgs.value);
+                          selectedButton = DateSelection.empty;
                         });
                       },
                       selectionMode: DateRangePickerSelectionMode.single,
