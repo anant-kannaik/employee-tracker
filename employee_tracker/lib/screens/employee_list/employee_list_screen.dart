@@ -42,8 +42,10 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
       body: BlocListener<EmployeeListScreenBloc, EmployeeListScreenState>(
         listener: (BuildContext context, state) {
           if (state is EmployeeListScreenFetchedState) {
-            _employeeList.clear();
-            _employeeList.addAll(state.employees);
+            setState(() {
+              _employeeList.clear();
+              _employeeList.addAll(state.employees);
+            });
           }
         },
         child: SafeArea(
