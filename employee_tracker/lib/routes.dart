@@ -23,6 +23,8 @@ class Routes {
           builder: (context) => BlocProvider(
             create: (context) => AddEmployeeDetailsScreenBloc(),
             child: AddEmployeeDetailsScreen(
+                employee: arguments[employeeKey],
+                isCurrentEmployee: arguments[isCurrentEmployeeKey],
                 employeeListScreenBloc: arguments[employeeListScreenBlocKey]),
           ),
         );

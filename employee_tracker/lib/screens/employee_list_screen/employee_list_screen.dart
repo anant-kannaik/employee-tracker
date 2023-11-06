@@ -71,6 +71,8 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
             context,
             addEmployeeDetailsScreenRouteName,
             arguments: {
+              employeeKey: null,
+              isCurrentEmployeeKey: false,
               employeeListScreenBlocKey: _employeeListScreenBloc,
             },
           );
@@ -130,14 +132,24 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
         return Dismissible(
           key: Key(item.id.toString()),
           onDismissed: (direction) {
-            BlocProvider.of<EmployeeListScreenBloc>(context).add(
+            _employeeListScreenBloc.add(
               DeleteEmployeeEvent(isCurrentEmployee: true, employee: item),
             );
           },
           background: Container(color: Colors.red),
           child: EmployeeListItem(
             employee: _currentEmployees[index],
-            onItemTap: (employee) {},
+            onItemTap: (employee) {
+              Navigator.pushNamed(
+                context,
+                addEmployeeDetailsScreenRouteName,
+                arguments: {
+                  employeeKey: employee,
+                  isCurrentEmployeeKey: true,
+                  employeeListScreenBlocKey: _employeeListScreenBloc,
+                },
+              );
+            },
           ),
         );
       },
@@ -153,14 +165,24 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
         return Dismissible(
           key: Key(item.id.toString()),
           onDismissed: (direction) {
-            BlocProvider.of<EmployeeListScreenBloc>(context).add(
+            _employeeListScreenBloc.add(
               DeleteEmployeeEvent(isCurrentEmployee: false, employee: item),
             );
           },
           background: Container(color: Colors.red),
           child: EmployeeListItem(
             employee: _previousEmployees[index],
-            onItemTap: (employee) {},
+            onItemTap: (employee) {
+              Navigator.pushNamed(
+                context,
+                addEmployeeDetailsScreenRouteName,
+                arguments: {
+                  employeeKey: employee,
+                  isCurrentEmployeeKey: false,
+                  employeeListScreenBlocKey: _employeeListScreenBloc,
+                },
+              );
+            },
           ),
         );
       },
