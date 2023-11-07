@@ -18,7 +18,7 @@ class AddEmployeeDetailsScreenBloc
   void _handleInsertEmployee(InsertEmployeeEvent event,
       Emitter<AddEmployeeDetailsScreenState> emit) async {
     String fromDate = event.fromDate == todayDateHintText
-        ? getDateForSelectedEnum(DateSelection.today)
+        ? getFormattedDateTime(getDateForSelectedEnum(DateSelection.today))
         : event.fromDate;
     String toDate = event.toDate;
 

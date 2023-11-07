@@ -287,7 +287,9 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
     DateRangePickerController dateRangePickerController =
         DateRangePickerController();
     DateSelection selectedButton = preSelectedDate;
-    String selectedDate = getDateForSelectedEnum(selectedButton);
+    String selectedDate = preSelectedDate == DateSelection.noDate
+        ? noDateHintText
+        : getFormattedDateTime(getDateForSelectedEnum(selectedButton));
 
     showDialog(
       context: context,
@@ -320,8 +322,7 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                             onPressed: () {
                               setState(() {
                                 dateRangePickerController.selectedDate =
-                                    getDateFromString(getDateForSelectedEnum(
-                                        DateSelection.today));
+                                    getDateForSelectedEnum(DateSelection.today);
                               });
                             },
                           ),
@@ -341,8 +342,8 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                             onPressed: () {
                               setState(() {
                                 dateRangePickerController.selectedDate =
-                                    getDateFromString(getDateForSelectedEnum(
-                                        DateSelection.nextMonday));
+                                    getDateForSelectedEnum(
+                                        DateSelection.nextMonday);
                               });
                             },
                           ),
@@ -365,8 +366,8 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                             onPressed: () {
                               setState(() {
                                 dateRangePickerController.selectedDate =
-                                    getDateFromString(getDateForSelectedEnum(
-                                        DateSelection.nextTuesday));
+                                    getDateForSelectedEnum(
+                                        DateSelection.nextTuesday);
                               });
                             },
                           ),
@@ -386,8 +387,8 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                             onPressed: () {
                               setState(() {
                                 dateRangePickerController.selectedDate =
-                                    getDateFromString(getDateForSelectedEnum(
-                                        DateSelection.after1Week));
+                                    getDateForSelectedEnum(
+                                        DateSelection.after1Week);
                               });
                             },
                           ),
@@ -411,8 +412,7 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                             onPressed: () {
                               setState(() {
                                 selectedButton = DateSelection.noDate;
-                                selectedDate =
-                                    getDateForSelectedEnum(selectedButton);
+                                selectedDate = noDateHintText;
                                 dateRangePickerController.selectedDate = null;
                               });
                             },
@@ -433,8 +433,7 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                             onPressed: () {
                               setState(() {
                                 dateRangePickerController.selectedDate =
-                                    getDateFromString(getDateForSelectedEnum(
-                                        DateSelection.today));
+                                    getDateForSelectedEnum(DateSelection.today);
                               });
                             },
                           ),

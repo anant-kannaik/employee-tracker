@@ -15,28 +15,16 @@ String getFormattedDateTime(DateTime dateTime) {
   return DateFormat(dateFormat).format(dateTime);
 }
 
-String getDateForSelectedEnum(DateSelection selectedDate) {
-  String selectedDateString = '';
-  switch (selectedDate) {
-    case DateSelection.today:
-      selectedDateString = getFormattedDateTime(DateTime.now());
-      break;
-    case DateSelection.nextMonday:
-      selectedDateString =
-          getFormattedDateTime(DateTime.now().next(DateTime.monday));
-      break;
-    case DateSelection.nextTuesday:
-      selectedDateString =
-          getFormattedDateTime(DateTime.now().next(DateTime.tuesday));
-      break;
-    case DateSelection.after1Week:
-      selectedDateString =
-          getFormattedDateTime(DateTime.now().next(DateTime.now().weekday));
-      break;
-    default:
-      selectedDateString = 'No date';
+DateTime getDateForSelectedEnum(DateSelection selectedDate) {
+  if (selectedDate == DateSelection.nextMonday) {
+    return DateTime.now().next(DateTime.monday);
+  } else if (selectedDate == DateSelection.nextTuesday) {
+    return DateTime.now().next(DateTime.tuesday);
+  } else if (selectedDate == DateSelection.after1Week) {
+    return DateTime.now().next(DateTime.now().weekday);
+  } else {
+    return DateTime.now();
   }
-  return selectedDateString;
 }
 
 DateSelection getEnumForSelectedDate(String selectedDate) {
