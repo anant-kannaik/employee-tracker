@@ -7,6 +7,7 @@ import 'package:employee_tracker/models/employee.dart';
 import 'package:employee_tracker/utils/app_colors.dart';
 import 'package:employee_tracker/utils/constants.dart';
 import 'package:employee_tracker/utils/utils.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
@@ -29,7 +30,7 @@ class AddEmployeeDetailsScreen extends StatefulWidget {
 
 class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
   final _employeeNameController = TextEditingController();
-  late String _selectedRole;
+  final _employeeRoleController = TextEditingController();
   late String _selectedFromDate;
   late String _selectedToDate;
 
@@ -37,7 +38,8 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
   void initState() {
     _employeeNameController.text =
         widget.employee != null ? widget.employee!.name : '';
-    _selectedRole = widget.employee != null ? widget.employee!.role : '';
+    _employeeRoleController.text =
+        widget.employee != null ? widget.employee!.role : '';
     _selectedFromDate =
         widget.employee != null ? widget.employee!.fromDate : todayDateHintText;
     _selectedToDate =
@@ -49,6 +51,7 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
   @override
   void dispose() {
     _employeeNameController.dispose();
+    _employeeRoleController.dispose();
     super.dispose();
   }
 
@@ -69,7 +72,10 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                     employee: widget.employee!));
                 Navigator.pop(context);
               },
-              icon: const Icon(Icons.delete),
+              icon: const Icon(
+                CupertinoIcons.delete,
+                size: 22.0,
+              ),
             )
           ]
         ],
@@ -95,9 +101,11 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                   child: TextField(
                     controller: _employeeNameController,
                     cursorColor: AppColors.primaryColor,
+                    style: const TextStyle(
+                      fontSize: 14.0,
+                    ),
                     decoration: const InputDecoration(
-                      labelText: employeeNameHintText,
-                      labelStyle: TextStyle(color: Colors.black54),
+                      hintText: employeeNameHintText,
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: Colors.black38,
@@ -108,24 +116,48 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                           color: Colors.black38,
                         ),
                       ),
+                      prefixIcon: Icon(
+                        Icons.person_outline,
+                        color: AppColors.primaryColor,
+                      ),
                     ),
                   ),
                 ),
                 const SizedBox(height: 20.0),
-                DropdownMenu<String>(
-                  width: MediaQuery.of(context).size.width * 0.90,
-                  label: const Text(selectRoleHintText),
-                  initialSelection: _selectedRole,
-                  onSelected: (String? value) {
-                    setState(() {
-                      _selectedRole = value!;
-                    });
-                  },
-                  dropdownMenuEntries:
-                      roleTypes.map<DropdownMenuEntry<String>>((String value) {
-                    return DropdownMenuEntry<String>(
-                        value: value, label: value);
-                  }).toList(),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: TextField(
+                    controller: _employeeRoleController,
+                    cursorColor: AppColors.primaryColor,
+                    readOnly: true,
+                    style: const TextStyle(
+                      fontSize: 14.0,
+                    ),
+                    decoration: const InputDecoration(
+                      hintText: selectRoleHintText,
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.black38,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.black38,
+                        ),
+                      ),
+                      prefixIcon: Icon(
+                        CupertinoIcons.bag,
+                        color: AppColors.primaryColor,
+                      ),
+                      suffixIcon: Icon(
+                        Icons.arrow_drop_down,
+                        color: AppColors.primaryColor,
+                      ),
+                    ),
+                    onTap: () {
+                      showRolesBottomSheet();
+                    },
+                  ),
                 ),
                 const SizedBox(height: 20.0),
                 Padding(
@@ -147,9 +179,9 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                                   _showDateTimePickerDialog(
                                       true, DateSelection.today);
                                 },
-                                iconSize: 30.0,
+                                iconSize: 22.0,
                                 icon: const Icon(
-                                  Icons.calendar_month,
+                                  Icons.calendar_today_outlined,
                                   color: AppColors.primaryColor,
                                 ),
                               ),
@@ -186,9 +218,9 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                                   _showDateTimePickerDialog(
                                       false, DateSelection.noDate);
                                 },
-                                iconSize: 30.0,
+                                iconSize: 22.0,
                                 icon: const Icon(
-                                  Icons.calendar_month,
+                                  Icons.calendar_today_outlined,
                                   color: AppColors.primaryColor,
                                 ),
                               ),
@@ -250,7 +282,8 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                                         id: widget.employee!.id!,
                                         name:
                                             _employeeNameController.text.trim(),
-                                        role: _selectedRole,
+                                        role:
+                                            _employeeRoleController.text.trim(),
                                         fromDate: _selectedFromDate,
                                         toDate: _selectedToDate));
                               } else {
@@ -259,7 +292,8 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                                     .add(InsertEmployeeEvent(
                                         name:
                                             _employeeNameController.text.trim(),
-                                        role: _selectedRole,
+                                        role:
+                                            _employeeRoleController.text.trim(),
                                         fromDate: _selectedFromDate,
                                         toDate: _selectedToDate));
                               }
@@ -276,6 +310,42 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  void showRolesBottomSheet() {
+    showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      builder: (context) {
+        return Container(
+          padding: const EdgeInsets.only(top: 8.0),
+          height: 220.0,
+          alignment: Alignment.center,
+          child: ListView.separated(
+            itemCount: roleTypes.length,
+            separatorBuilder: (context, index) {
+              return const Divider();
+            },
+            itemBuilder: (context, index) {
+              return GestureDetector(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Center(child: Text(roleTypes[index])),
+                ),
+                onTap: () {
+                  setState(() {
+                    _employeeRoleController.text = roleTypes[index];
+                  });
+                  Navigator.of(context).pop();
+                },
+              );
+            },
+          ),
+        );
+      },
     );
   }
 
@@ -470,7 +540,7 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                     child: Row(
                       children: [
                         const Icon(
-                          Icons.calendar_month,
+                          Icons.calendar_today_outlined,
                           color: AppColors.primaryColor,
                           size: 20.0,
                         ),
@@ -480,7 +550,7 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                             selectedDate,
                             maxLines: 1,
                             style: const TextStyle(
-                              fontSize: 14.0,
+                              fontSize: 13.0,
                             ),
                           ),
                         ),
