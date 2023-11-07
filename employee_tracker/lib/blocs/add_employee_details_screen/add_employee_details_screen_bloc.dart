@@ -26,7 +26,8 @@ class AddEmployeeDetailsScreenBloc
       emit(AddEmployeeDetailsScreenErrorState(
           error: AppError(
               errorCode: '0', message: 'Please enter employee name and role')));
-    } else if (!checkIfDatesValid(fromDate, toDate)) {
+    } else if (toDate != noDateHintText &&
+        !checkIfDatesValid(fromDate, toDate)) {
       emit(AddEmployeeDetailsScreenErrorState(
           error: AppError(
               errorCode: '1',
@@ -51,7 +52,8 @@ class AddEmployeeDetailsScreenBloc
       emit(AddEmployeeDetailsScreenErrorState(
           error: AppError(
               errorCode: '0', message: 'Please enter employee name and role')));
-    } else if (!checkIfDatesValid(event.fromDate, event.toDate)) {
+    } else if (event.toDate != noDateHintText &&
+        !checkIfDatesValid(event.fromDate, event.toDate)) {
       emit(AddEmployeeDetailsScreenErrorState(
           error: AppError(
               errorCode: '1',
