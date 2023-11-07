@@ -92,6 +92,8 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
           } else if (state is AddEmployeeDetailsScreenUpdatedState) {
             widget.employeeListScreenBloc.add(FetchEmployeesEvent());
             Navigator.pop(context);
+          } else if (state is AddEmployeeDetailsScreenErrorState) {
+            showSnackBar(context, state.error.message);
           }
         },
         child: SafeArea(
