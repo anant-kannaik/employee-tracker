@@ -13,7 +13,7 @@ class EmployeeListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
             Row(
