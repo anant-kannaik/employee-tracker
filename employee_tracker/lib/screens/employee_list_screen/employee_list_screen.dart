@@ -6,6 +6,7 @@ import 'package:employee_tracker/utils/app_colors.dart';
 import 'package:employee_tracker/utils/constants.dart';
 import 'package:employee_tracker/utils/utils.dart';
 import 'package:employee_tracker/widgets/employee_list_item.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -136,9 +137,9 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
             alignment: Alignment.centerRight,
             padding: const EdgeInsets.only(right: 20),
             child: const Icon(
-              Icons.delete,
+              CupertinoIcons.delete,
               color: Colors.white,
-              size: 25.0,
+              size: 22.0,
             ),
           ),
           direction: DismissDirection.endToStart,
