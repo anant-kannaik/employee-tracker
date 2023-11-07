@@ -25,13 +25,14 @@ class AddEmployeeDetailsScreenBloc
     if (event.name.isEmpty || event.role.isEmpty) {
       emit(AddEmployeeDetailsScreenErrorState(
           error: AppError(
-              errorCode: '0', message: 'Please enter employee name and role')));
+              errorCode: appErrorCode,
+              message: enterEmployeeNameAndRoleMessage)));
     } else if (toDate != noDateHintText &&
         !checkIfDatesValid(fromDate, toDate)) {
       emit(AddEmployeeDetailsScreenErrorState(
           error: AppError(
-              errorCode: '1',
-              message: 'Leaving date cannot be greater than joining date')));
+              errorCode: appErrorCode,
+              message: leavingDateGreaterThanJoiningDateMessage)));
     } else {
       Employee employee = Employee(
           id: null, // Explicitly assigning a value of NULL to id, it will get the next auto-increment value.
@@ -51,13 +52,14 @@ class AddEmployeeDetailsScreenBloc
     if (event.name.isEmpty || event.role.isEmpty) {
       emit(AddEmployeeDetailsScreenErrorState(
           error: AppError(
-              errorCode: '0', message: 'Please enter employee name and role')));
+              errorCode: appErrorCode,
+              message: enterEmployeeNameAndRoleMessage)));
     } else if (event.toDate != noDateHintText &&
         !checkIfDatesValid(event.fromDate, event.toDate)) {
       emit(AddEmployeeDetailsScreenErrorState(
           error: AppError(
-              errorCode: '1',
-              message: 'Leaving date cannot be greater than joining date')));
+              errorCode: appErrorCode,
+              message: leavingDateGreaterThanJoiningDateMessage)));
     } else {
       Employee employee = Employee(
           id: event.id,

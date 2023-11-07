@@ -59,7 +59,7 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
                 _previousEmployees.remove(state.employee);
               }
             });
-            showSnackBar(context, 'Employee data has been deleted');
+            showSnackBar(context, employeeDataDeletedMessage);
           }
         },
         child: SafeArea(
@@ -92,7 +92,7 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
             children: [
               Expanded(
                 flex: 1,
-                child: _getHeaderView('Current Employees'),
+                child: _getHeaderView(currentEmployeesText),
               ),
               Expanded(
                 flex: 5,
@@ -100,7 +100,7 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
               ),
               Expanded(
                 flex: 1,
-                child: _getHeaderView('Previous Employees'),
+                child: _getHeaderView(previousEmployeesText),
               ),
               Expanded(
                 flex: 5,
@@ -148,7 +148,7 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
           Padding(
             padding: EdgeInsets.all(10.0),
             child: Text(
-              'Swipe left to delete',
+              swipeLeftToDeleteMessage,
               style: TextStyle(
                 fontSize: 15.0,
                 fontWeight: FontWeight.w400,

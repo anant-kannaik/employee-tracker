@@ -310,7 +310,7 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                       children: [
                         Expanded(
                           child: CustomTextButton(
-                            title: 'Today',
+                            title: todayButtonTitle,
                             foregroundColor:
                                 selectedButton == DateSelection.today
                                     ? Colors.white
@@ -330,7 +330,7 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                         const SizedBox(width: 10.0),
                         Expanded(
                           child: CustomTextButton(
-                            title: 'Next Monday',
+                            title: nextMondayButtonTitle,
                             foregroundColor:
                                 selectedButton == DateSelection.nextMonday
                                     ? Colors.white
@@ -354,7 +354,7 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                       children: [
                         Expanded(
                           child: CustomTextButton(
-                            title: 'Next Tuesday',
+                            title: nextTuesdayButtonTitle,
                             foregroundColor:
                                 selectedButton == DateSelection.nextTuesday
                                     ? Colors.white
@@ -375,7 +375,7 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                         const SizedBox(width: 10.0),
                         Expanded(
                           child: CustomTextButton(
-                            title: 'After 1 week',
+                            title: after1WeekButtonTitle,
                             foregroundColor:
                                 selectedButton == DateSelection.after1Week
                                     ? Colors.white
@@ -400,7 +400,7 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                       children: [
                         Expanded(
                           child: CustomTextButton(
-                            title: 'No date',
+                            title: noDateButtonTitle,
                             foregroundColor:
                                 selectedButton == DateSelection.noDate
                                     ? Colors.white
@@ -421,7 +421,7 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                         const SizedBox(width: 10.0),
                         Expanded(
                           child: CustomTextButton(
-                            title: 'Today',
+                            title: todayButtonTitle,
                             foregroundColor:
                                 selectedButton == DateSelection.today
                                     ? Colors.white
