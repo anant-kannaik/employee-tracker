@@ -1,3 +1,4 @@
+import 'package:employee_tracker/models/employee.dart';
 import 'package:employee_tracker/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -50,4 +51,11 @@ extension DateTimeExtension on DateTime {
       );
     }
   }
+}
+
+String getDateForEmployee(Employee employee) {
+  if (employee.toDate == noDateHintText) {
+    return 'From ${employee.fromDate}';
+  }
+  return '${employee.fromDate} - ${employee.toDate}';
 }

@@ -91,27 +91,79 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
         ? Column(
             children: [
               Expanded(
+                flex: 6,
                 child: Column(
                   children: [
-                    const Text(
-                      'Current Employees',
-                      style: TextStyle(
-                          fontSize: 16.0, fontWeight: FontWeight.bold),
+                    Container(
+                      height: 56.0,
+                      color: const Color(0xffF2F2F2),
+                      child: const Row(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.all(10.0),
+                            child: Text(
+                              'Current Employees',
+                              style: TextStyle(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w500,
+                                  color: AppColors.primaryColor),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
+                    const SizedBox(height: 8.0),
                     _getCurrentEmployees(),
                   ],
                 ),
               ),
               Expanded(
+                flex: 6,
                 child: Column(
                   children: [
-                    const Text(
-                      'Previous Employees',
-                      style: TextStyle(
-                          fontSize: 16.0, fontWeight: FontWeight.bold),
+                    Container(
+                      height: 56.0,
+                      color: const Color(0xffF2F2F2),
+                      child: const Row(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.all(10.0),
+                            child: Text(
+                              'Previous Employees',
+                              style: TextStyle(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w500,
+                                  color: AppColors.primaryColor),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
+                    const SizedBox(height: 8.0),
                     _getPreviousEmployees(),
                   ],
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: Container(
+                  height: 56.0,
+                  color: const Color(0xffF2F2F2),
+                  child: const Row(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Text(
+                          'Swipe left to delete',
+                          style: TextStyle(
+                            fontSize: 15.0,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xff949C9E),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -125,9 +177,12 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
   }
 
   _getCurrentEmployees() {
-    return ListView.builder(
+    return ListView.separated(
       shrinkWrap: true,
       itemCount: _currentEmployees.length,
+      separatorBuilder: (BuildContext context, int index) {
+        return const Divider();
+      },
       itemBuilder: (BuildContext context, int index) {
         final item = _currentEmployees[index];
         return Dismissible(
@@ -168,9 +223,12 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
   }
 
   _getPreviousEmployees() {
-    return ListView.builder(
+    return ListView.separated(
       shrinkWrap: true,
       itemCount: _previousEmployees.length,
+      separatorBuilder: (BuildContext context, int index) {
+        return const Divider();
+      },
       itemBuilder: (BuildContext context, int index) {
         final item = _previousEmployees[index];
         return Dismissible(
@@ -180,7 +238,17 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
               DeleteEmployeeEvent(isCurrentEmployee: false, employee: item),
             );
           },
-          background: Container(color: Colors.red),
+          background: Container(
+            color: Colors.red,
+            alignment: Alignment.centerRight,
+            padding: const EdgeInsets.only(right: 20),
+            child: const Icon(
+              CupertinoIcons.delete,
+              color: Colors.white,
+              size: 22.0,
+            ),
+          ),
+          direction: DismissDirection.endToStart,
           child: EmployeeListItem(
             employee: _previousEmployees[index],
             onItemTap: (employee) {

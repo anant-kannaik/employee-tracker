@@ -1,4 +1,5 @@
 import 'package:employee_tracker/models/employee.dart';
+import 'package:employee_tracker/utils/utils.dart';
 import 'package:flutter/material.dart';
 
 class EmployeeListItem extends StatelessWidget {
@@ -12,7 +13,7 @@ class EmployeeListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       child: Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.symmetric(horizontal: 10.0),
         child: Column(
           children: [
             Row(
@@ -20,30 +21,35 @@ class EmployeeListItem extends StatelessWidget {
                 Text(
                   employee.name,
                   style: const TextStyle(
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.bold,
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xff323238),
                   ),
                 ),
               ],
             ),
+            const SizedBox(height: 6.0),
             Row(
               children: [
                 Text(
                   employee.role,
                   style: const TextStyle(
-                    fontSize: 12.0,
-                    // fontWeight: FontWeight.bold,
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.w400,
+                    color: Color(0xff949C9E),
                   ),
                 ),
               ],
             ),
+            const SizedBox(height: 4.0),
             Row(
               children: [
                 Text(
-                  employee.fromDate,
+                  getDateForEmployee(employee),
                   style: const TextStyle(
                     fontSize: 12.0,
-                    // fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w400,
+                    color: Color(0xff949C9E),
                   ),
                 ),
               ],
