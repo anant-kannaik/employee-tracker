@@ -284,6 +284,8 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
   }
 
   _showDateTimePickerDialog(bool isFromDate, DateSelection preSelectedDate) {
+    DateRangePickerController dateRangePickerController =
+        DateRangePickerController();
     DateSelection selectedButton = preSelectedDate;
     String selectedDate = getDateForSelectedEnum(selectedButton);
 
@@ -305,97 +307,97 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                     Row(
                       children: [
                         Expanded(
-                          child: TextButton(
-                            style: TextButton.styleFrom(
-                              backgroundColor:
-                                  selectedButton == DateSelection.today
-                                      ? AppColors.primaryColor
-                                      : const Color(0xffEDF8FF),
-                              foregroundColor:
-                                  selectedButton == DateSelection.today
-                                      ? const Color(0xffEDF8FF)
-                                      : AppColors.primaryColor,
-                            ),
+                          child: CustomTextButton(
+                            title: 'Today',
+                            foregroundColor:
+                                selectedButton == DateSelection.today
+                                    ? Colors.white
+                                    : AppColors.primaryColor,
+                            backgroundColor:
+                                selectedButton == DateSelection.today
+                                    ? AppColors.primaryColor
+                                    : const Color(0xffEDF8FF),
                             onPressed: () {
                               setState(() {
                                 selectedButton = DateSelection.today;
                                 selectedDate =
                                     getDateForSelectedEnum(selectedButton);
+                                dateRangePickerController.selectedDate =
+                                    getDateFromString(selectedDate);
                               });
                             },
-                            child: const Text('Today'),
                           ),
                         ),
                         const SizedBox(width: 10.0),
                         Expanded(
-                          child: TextButton(
-                            style: TextButton.styleFrom(
-                              backgroundColor:
-                                  selectedButton == DateSelection.nextMonday
-                                      ? AppColors.primaryColor
-                                      : const Color(0xffEDF8FF),
-                              foregroundColor:
-                                  selectedButton == DateSelection.nextMonday
-                                      ? const Color(0xffEDF8FF)
-                                      : AppColors.primaryColor,
-                            ),
+                          child: CustomTextButton(
+                            title: 'Next Monday',
+                            foregroundColor:
+                                selectedButton == DateSelection.nextMonday
+                                    ? Colors.white
+                                    : AppColors.primaryColor,
+                            backgroundColor:
+                                selectedButton == DateSelection.nextMonday
+                                    ? AppColors.primaryColor
+                                    : const Color(0xffEDF8FF),
                             onPressed: () {
                               setState(() {
                                 selectedButton = DateSelection.nextMonday;
                                 selectedDate =
                                     getDateForSelectedEnum(selectedButton);
+                                dateRangePickerController.selectedDate =
+                                    getDateFromString(selectedDate);
                               });
                             },
-                            child: const Text('Next Monday'),
                           ),
-                        )
+                        ),
                       ],
                     ),
                     Row(
                       children: [
                         Expanded(
-                          child: TextButton(
-                            style: TextButton.styleFrom(
-                              backgroundColor:
-                                  selectedButton == DateSelection.nextTuesday
-                                      ? AppColors.primaryColor
-                                      : const Color(0xffEDF8FF),
-                              foregroundColor:
-                                  selectedButton == DateSelection.nextTuesday
-                                      ? const Color(0xffEDF8FF)
-                                      : AppColors.primaryColor,
-                            ),
+                          child: CustomTextButton(
+                            title: 'Next Tuesday',
+                            foregroundColor:
+                                selectedButton == DateSelection.nextTuesday
+                                    ? Colors.white
+                                    : AppColors.primaryColor,
+                            backgroundColor:
+                                selectedButton == DateSelection.nextTuesday
+                                    ? AppColors.primaryColor
+                                    : const Color(0xffEDF8FF),
                             onPressed: () {
                               setState(() {
                                 selectedButton = DateSelection.nextTuesday;
                                 selectedDate =
                                     getDateForSelectedEnum(selectedButton);
+                                dateRangePickerController.selectedDate =
+                                    getDateFromString(selectedDate);
                               });
                             },
-                            child: const Text('Next Tuesday'),
                           ),
                         ),
                         const SizedBox(width: 10.0),
                         Expanded(
-                          child: TextButton(
-                            style: TextButton.styleFrom(
-                              backgroundColor:
-                                  selectedButton == DateSelection.after1Week
-                                      ? AppColors.primaryColor
-                                      : const Color(0xffEDF8FF),
-                              foregroundColor:
-                                  selectedButton == DateSelection.after1Week
-                                      ? const Color(0xffEDF8FF)
-                                      : AppColors.primaryColor,
-                            ),
+                          child: CustomTextButton(
+                            title: 'After 1 week',
+                            foregroundColor:
+                                selectedButton == DateSelection.after1Week
+                                    ? Colors.white
+                                    : AppColors.primaryColor,
+                            backgroundColor:
+                                selectedButton == DateSelection.after1Week
+                                    ? AppColors.primaryColor
+                                    : const Color(0xffEDF8FF),
                             onPressed: () {
                               setState(() {
                                 selectedButton = DateSelection.after1Week;
                                 selectedDate =
                                     getDateForSelectedEnum(selectedButton);
+                                dateRangePickerController.selectedDate =
+                                    getDateFromString(selectedDate);
                               });
                             },
-                            child: const Text('After 1 week'),
                           ),
                         )
                       ],
@@ -404,48 +406,47 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                     Row(
                       children: [
                         Expanded(
-                          child: TextButton(
-                            style: TextButton.styleFrom(
-                              backgroundColor:
-                                  selectedButton == DateSelection.noDate
-                                      ? AppColors.primaryColor
-                                      : const Color(0xffEDF8FF),
-                              foregroundColor:
-                                  selectedButton == DateSelection.noDate
-                                      ? const Color(0xffEDF8FF)
-                                      : AppColors.primaryColor,
-                            ),
+                          child: CustomTextButton(
+                            title: 'No date',
+                            foregroundColor:
+                                selectedButton == DateSelection.noDate
+                                    ? Colors.white
+                                    : AppColors.primaryColor,
+                            backgroundColor:
+                                selectedButton == DateSelection.noDate
+                                    ? AppColors.primaryColor
+                                    : const Color(0xffEDF8FF),
                             onPressed: () {
                               setState(() {
                                 selectedButton = DateSelection.noDate;
                                 selectedDate =
                                     getDateForSelectedEnum(selectedButton);
+                                // dateRangePickerController.selectedDate = null;
                               });
                             },
-                            child: const Text('No date'),
                           ),
                         ),
                         const SizedBox(width: 10.0),
                         Expanded(
-                          child: TextButton(
-                            style: TextButton.styleFrom(
-                              backgroundColor:
-                                  selectedButton == DateSelection.today
-                                      ? AppColors.primaryColor
-                                      : const Color(0xffEDF8FF),
-                              foregroundColor:
-                                  selectedButton == DateSelection.today
-                                      ? const Color(0xffEDF8FF)
-                                      : AppColors.primaryColor,
-                            ),
+                          child: CustomTextButton(
+                            title: 'Today',
+                            foregroundColor:
+                                selectedButton == DateSelection.today
+                                    ? Colors.white
+                                    : AppColors.primaryColor,
+                            backgroundColor:
+                                selectedButton == DateSelection.today
+                                    ? AppColors.primaryColor
+                                    : const Color(0xffEDF8FF),
                             onPressed: () {
                               setState(() {
                                 selectedButton = DateSelection.today;
                                 selectedDate =
                                     getDateForSelectedEnum(selectedButton);
+                                dateRangePickerController.selectedDate =
+                                    getDateFromString(selectedDate);
                               });
                             },
-                            child: const Text('Today'),
                           ),
                         )
                       ],
@@ -455,12 +456,13 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                     width: MediaQuery.of(context).size.width,
                     height: 260.0,
                     child: SfDateRangePicker(
+                      controller: dateRangePickerController,
                       onSelectionChanged:
                           (dateRangePickerSelectionChangedArgs) {
                         setState(() {
                           selectedDate = getFormattedDateTime(
                               dateRangePickerSelectionChangedArgs.value);
-                          selectedButton = DateSelection.empty;
+                          // selectedButton = DateSelection.empty;
                         });
                       },
                       selectionMode: DateRangePickerSelectionMode.single,
@@ -499,32 +501,24 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                               ),
                             ),
                           ),
-                          TextButton(
-                            style: ButtonStyle(
-                              foregroundColor: MaterialStateProperty.all<Color>(
-                                  AppColors.primaryColor),
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  const Color(0xffEDF8FF)),
-                            ),
+                          CustomTextButton(
+                            title: cancelButtonText,
+                            foregroundColor: AppColors.primaryColor,
+                            backgroundColor: const Color(0xffEDF8FF),
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            child: const Text(cancelButtonText),
                           ),
                           const SizedBox(width: 10.0),
-                          TextButton(
-                            style: ButtonStyle(
-                              foregroundColor: MaterialStateProperty.all<Color>(
-                                  Colors.white),
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  AppColors.primaryColor),
-                            ),
+                          CustomTextButton(
+                            title: saveButtonText,
+                            foregroundColor: Colors.white,
+                            backgroundColor: AppColors.primaryColor,
                             onPressed: () {
                               _onDateSelectionChanged(isFromDate, selectedDate);
                               Navigator.pop(context);
                             },
-                            child: const Text(saveButtonText),
-                          )
+                          ),
                         ],
                       ),
                     ),

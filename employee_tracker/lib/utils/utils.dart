@@ -61,10 +61,12 @@ String getDateForEmployee(Employee employee) {
 }
 
 bool checkIfDatesValid(String fromDate, String toDate) {
-  DateTime convertedFromDate = DateFormat(dateFormat).parse(fromDate);
-  DateTime convertedToDate = DateFormat(dateFormat).parse(toDate);
-  if (convertedFromDate.isAfter(convertedToDate)) {
+  if (getDateFromString(fromDate).isAfter(getDateFromString(toDate))) {
     return false;
   }
   return true;
+}
+
+DateTime getDateFromString(String date) {
+  return DateFormat(dateFormat).parse(date);
 }
