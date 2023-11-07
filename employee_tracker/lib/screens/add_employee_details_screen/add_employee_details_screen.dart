@@ -102,7 +102,8 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                     controller: _employeeNameController,
                     cursorColor: AppColors.primaryColor,
                     style: const TextStyle(
-                      fontSize: 14.0,
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.w400,
                     ),
                     decoration: const InputDecoration(
                       hintText: employeeNameHintText,
@@ -131,7 +132,8 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                     cursorColor: AppColors.primaryColor,
                     readOnly: true,
                     style: const TextStyle(
-                      fontSize: 14.0,
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.w400,
                     ),
                     decoration: const InputDecoration(
                       hintText: selectRoleHintText,
@@ -189,6 +191,7 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                                 _selectedFromDate,
                                 style: const TextStyle(
                                   fontSize: 14.0,
+                                  fontWeight: FontWeight.w400,
                                 ),
                               ),
                             ],
@@ -228,6 +231,7 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                                 _selectedToDate,
                                 style: const TextStyle(
                                   fontSize: 14.0,
+                                  fontWeight: FontWeight.w400,
                                 ),
                               ),
                             ],
@@ -360,6 +364,10 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
         return StatefulBuilder(
           builder: (BuildContext context, setState) {
             return AlertDialog(
+              contentPadding: const EdgeInsets.all(16.0),
+              insetPadding: const EdgeInsets.symmetric(horizontal: 16.0),
+              shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10.0))),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -515,7 +523,7 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                   ],
                   SizedBox(
                     width: MediaQuery.of(context).size.width,
-                    height: 300.0,
+                    height: 260.0,
                     child: SfDateRangePicker(
                       onSelectionChanged:
                           (dateRangePickerSelectionChangedArgs) {
@@ -537,50 +545,54 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                         ),
                       ),
                     ),
-                    child: Row(
-                      children: [
-                        const Icon(
-                          Icons.calendar_today_outlined,
-                          color: AppColors.primaryColor,
-                          size: 20.0,
-                        ),
-                        const SizedBox(width: 5.0),
-                        Expanded(
-                          child: Text(
-                            selectedDate,
-                            maxLines: 1,
-                            style: const TextStyle(
-                              fontSize: 13.0,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 5.0),
+                      child: Row(
+                        children: [
+                          const Icon(
+                            Icons.calendar_today_outlined,
+                            color: AppColors.primaryColor,
+                            size: 20.0,
+                          ),
+                          const SizedBox(width: 8.0),
+                          Expanded(
+                            child: Text(
+                              selectedDate,
+                              maxLines: 1,
+                              style: const TextStyle(
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.w400,
+                              ),
                             ),
                           ),
-                        ),
-                        TextButton(
-                          style: ButtonStyle(
-                            foregroundColor: MaterialStateProperty.all<Color>(
-                                AppColors.primaryColor),
-                            backgroundColor: MaterialStateProperty.all<Color>(
-                                const Color(0xffEDF8FF)),
+                          TextButton(
+                            style: ButtonStyle(
+                              foregroundColor: MaterialStateProperty.all<Color>(
+                                  AppColors.primaryColor),
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  const Color(0xffEDF8FF)),
+                            ),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Text(cancelButtonText),
                           ),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Text(cancelButtonText),
-                        ),
-                        const SizedBox(width: 10.0),
-                        TextButton(
-                          style: ButtonStyle(
-                            foregroundColor:
-                                MaterialStateProperty.all<Color>(Colors.white),
-                            backgroundColor: MaterialStateProperty.all<Color>(
-                                AppColors.primaryColor),
-                          ),
-                          onPressed: () {
-                            _onDateSelectionChanged(isFromDate, selectedDate);
-                            Navigator.pop(context);
-                          },
-                          child: const Text(saveButtonText),
-                        )
-                      ],
+                          const SizedBox(width: 10.0),
+                          TextButton(
+                            style: ButtonStyle(
+                              foregroundColor: MaterialStateProperty.all<Color>(
+                                  Colors.white),
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  AppColors.primaryColor),
+                            ),
+                            onPressed: () {
+                              _onDateSelectionChanged(isFromDate, selectedDate);
+                              Navigator.pop(context);
+                            },
+                            child: const Text(saveButtonText),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ],
