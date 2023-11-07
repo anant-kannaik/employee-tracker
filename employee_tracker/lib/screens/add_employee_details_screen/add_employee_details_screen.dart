@@ -464,6 +464,10 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                         });
                       },
                       selectionMode: DateRangePickerSelectionMode.single,
+                      maxDate: isFromDate
+                          ? null
+                          : DateTime
+                              .now(), // Future dates are disabled for employee leaving date
                     ),
                   ),
                   Container(

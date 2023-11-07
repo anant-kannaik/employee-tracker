@@ -59,3 +59,12 @@ String getDateForEmployee(Employee employee) {
   }
   return '${employee.fromDate} - ${employee.toDate}';
 }
+
+bool checkIfDatesValid(String fromDate, String toDate) {
+  DateTime convertedFromDate = DateFormat(dateFormat).parse(fromDate);
+  DateTime convertedToDate = DateFormat(dateFormat).parse(toDate);
+  if (convertedFromDate.isAfter(convertedToDate)) {
+    return false;
+  }
+  return true;
+}

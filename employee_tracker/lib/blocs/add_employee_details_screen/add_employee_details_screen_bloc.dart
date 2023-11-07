@@ -17,20 +17,27 @@ class AddEmployeeDetailsScreenBloc
 
   void _handleInsertEmployee(InsertEmployeeEvent event,
       Emitter<AddEmployeeDetailsScreenState> emit) async {
+    String fromDate = event.fromDate == todayDateHintText
+        ? getDateForSelectedEnum(DateSelection.today)
+        : event.fromDate;
+    String toDate = event.toDate;
+
     if (event.name.isEmpty || event.role.isEmpty) {
       emit(AddEmployeeDetailsScreenErrorState(
           error: AppError(
               errorCode: '0', message: 'Please enter employee name and role')));
+    } else if (!checkIfDatesValid(fromDate, toDate)) {
+      emit(AddEmployeeDetailsScreenErrorState(
+          error: AppError(
+              errorCode: '1',
+              message: 'Leaving date cannot be greater than joining date')));
     } else {
       Employee employee = Employee(
-          id:
-              null, // Explicitly assigning a value of NULL to id, it will get the next auto-increment value.
+          id: null, // Explicitly assigning a value of NULL to id, it will get the next auto-increment value.
           name: event.name,
           role: event.role,
-          fromDate: event.fromDate == todayDateHintText
-              ? getDateForSelectedEnum(DateSelection.today)
-              : event.fromDate,
-          toDate: event.toDate);
+          fromDate: fromDate,
+          toDate: toDate);
 
       await EmployeeRepository.sharedInstance.insertEmployee(employee);
 
@@ -40,14 +47,25 @@ class AddEmployeeDetailsScreenBloc
 
   void _handleUpdateEmployee(UpdateEmployeeEvent event,
       Emitter<AddEmployeeDetailsScreenState> emit) async {
-    Employee employee = Employee(
-        id: event.id,
-        name: event.name,
-        role: event.role,
-        fromDate: event.fromDate,
-        toDate: event.toDate);
-    await EmployeeRepository.sharedInstance.updateEmployee(employee);
+    if (event.name.isEmpty || event.role.isEmpty) {
+      emit(AddEmployeeDetailsScreenErrorState(
+          error: AppError(
+              errorCode: '0', message: 'Please enter employee name and role')));
+    } else if (!checkIfDatesValid(event.fromDate, event.toDate)) {
+      emit(AddEmployeeDetailsScreenErrorState(
+          error: AppError(
+              errorCode: '1',
+              message: 'Leaving date cannot be greater than joining date')));
+    } else {
+      Employee employee = Employee(
+          id: event.id,
+          name: event.name,
+          role: event.role,
+          fromDate: event.fromDate,
+          toDate: event.toDate);
+      await EmployeeRepository.sharedInstance.updateEmployee(employee);
 
-    emit(AddEmployeeDetailsScreenUpdatedState(employee: employee));
+      emit(AddEmployeeDetailsScreenUpdatedState(employee: employee));
+    }
   }
 }
