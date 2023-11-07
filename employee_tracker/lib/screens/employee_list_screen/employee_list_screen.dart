@@ -131,12 +131,36 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
         final item = _currentEmployees[index];
         return Dismissible(
           key: Key(item.id.toString()),
+          background: Container(
+            color: Colors.red,
+            alignment: Alignment.centerRight,
+            padding: const EdgeInsets.only(right: 20),
+            child: const Icon(
+              Icons.delete,
+              color: Colors.white,
+              size: 25.0,
+            ),
+          ),
+          direction: DismissDirection.endToStart,
+          confirmDismiss: (direction) => showDialog(
+            context: context,
+            builder: ((context) => AlertDialog(
+                  content: const Text('Do you want to delete the employee?'),
+                  actions: [
+                    TextButton(
+                        onPressed: () => Navigator.of(context).pop(false),
+                        child: const Text('No')),
+                    TextButton(
+                        onPressed: () => Navigator.of(context).pop(true),
+                        child: const Text('Yes'))
+                  ],
+                )),
+          ),
           onDismissed: (direction) {
             _employeeListScreenBloc.add(
               DeleteEmployeeEvent(isCurrentEmployee: true, employee: item),
             );
           },
-          background: Container(color: Colors.red),
           child: EmployeeListItem(
             employee: _currentEmployees[index],
             onItemTap: (employee) {
