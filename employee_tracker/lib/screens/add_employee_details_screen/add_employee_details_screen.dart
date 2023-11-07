@@ -194,7 +194,7 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                               Navigator.pop(context);
                             },
                           ),
-                          const SizedBox(width: 10.0),
+                          const SizedBox(width: 16.0),
                           CustomTextButton(
                             title: saveButtonText,
                             foregroundColor: Colors.white,
@@ -502,7 +502,7 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                               Navigator.pop(context);
                             },
                           ),
-                          const SizedBox(width: 10.0),
+                          const SizedBox(width: 16.0),
                           CustomTextButton(
                             title: saveButtonText,
                             foregroundColor: Colors.white,
