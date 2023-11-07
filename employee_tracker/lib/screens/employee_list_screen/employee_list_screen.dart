@@ -91,80 +91,24 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
         ? Column(
             children: [
               Expanded(
-                flex: 6,
-                child: Column(
-                  children: [
-                    Container(
-                      height: 56.0,
-                      color: const Color(0xffF2F2F2),
-                      child: const Row(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.all(10.0),
-                            child: Text(
-                              'Current Employees',
-                              style: TextStyle(
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.w500,
-                                  color: AppColors.primaryColor),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 8.0),
-                    _getCurrentEmployees(),
-                  ],
-                ),
+                flex: 1,
+                child: _getHeaderView('Current Employees'),
               ),
               Expanded(
-                flex: 6,
-                child: Column(
-                  children: [
-                    Container(
-                      height: 56.0,
-                      color: const Color(0xffF2F2F2),
-                      child: const Row(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.all(10.0),
-                            child: Text(
-                              'Previous Employees',
-                              style: TextStyle(
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.w500,
-                                  color: AppColors.primaryColor),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 8.0),
-                    _getPreviousEmployees(),
-                  ],
-                ),
+                flex: 5,
+                child: _getCurrentEmployees(),
               ),
               Expanded(
                 flex: 1,
-                child: Container(
-                  height: 56.0,
-                  color: const Color(0xffF2F2F2),
-                  child: const Row(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.all(10.0),
-                        child: Text(
-                          'Swipe left to delete',
-                          style: TextStyle(
-                            fontSize: 15.0,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff949C9E),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                child: _getHeaderView('Previous Employees'),
+              ),
+              Expanded(
+                flex: 5,
+                child: _getPreviousEmployees(),
+              ),
+              Expanded(
+                flex: 1,
+                child: _getSwipeToDeleteHeaderView(),
               ),
             ],
           )
@@ -174,6 +118,47 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
               height: 220.0,
             ),
           );
+  }
+
+  _getHeaderView(String title) {
+    return Container(
+      color: const Color(0xffF2F2F2),
+      child: Row(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Text(
+              title,
+              style: const TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.primaryColor),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  _getSwipeToDeleteHeaderView() {
+    return Container(
+      color: const Color(0xffF2F2F2),
+      child: const Row(
+        children: [
+          Padding(
+            padding: EdgeInsets.all(10.0),
+            child: Text(
+              'Swipe left to delete',
+              style: TextStyle(
+                fontSize: 15.0,
+                fontWeight: FontWeight.w400,
+                color: Color(0xff949C9E),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   _getCurrentEmployees() {
