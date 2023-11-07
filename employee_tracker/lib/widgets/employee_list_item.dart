@@ -28,7 +28,7 @@ class EmployeeListItem extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 6.0),
+            const SizedBox(height: 8.0),
             Row(
               children: [
                 Text(
@@ -41,7 +41,7 @@ class EmployeeListItem extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 4.0),
+            const SizedBox(height: 6.0),
             Row(
               children: [
                 Text(
