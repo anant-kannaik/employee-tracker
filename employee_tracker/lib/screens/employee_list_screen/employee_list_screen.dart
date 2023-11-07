@@ -163,7 +163,6 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
 
   _getCurrentEmployees() {
     return ListView.separated(
-      shrinkWrap: true,
       itemCount: _currentEmployees.length,
       separatorBuilder: (BuildContext context, int index) {
         return const Divider();
@@ -209,7 +208,6 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
 
   _getPreviousEmployees() {
     return ListView.separated(
-      shrinkWrap: true,
       itemCount: _previousEmployees.length,
       separatorBuilder: (BuildContext context, int index) {
         return const Divider();

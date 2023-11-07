@@ -93,11 +93,11 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
         },
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.only(top: 30.0),
+            padding: const EdgeInsets.only(top: 24.0),
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: TextField(
                     controller: _employeeNameController,
                     cursorColor: AppColors.primaryColor,
@@ -126,7 +126,7 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                 ),
                 const SizedBox(height: 20.0),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: TextField(
                     controller: _employeeRoleController,
                     cursorColor: AppColors.primaryColor,
@@ -163,7 +163,7 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                 ),
                 const SizedBox(height: 20.0),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: Row(
                     children: [
                       Expanded(
@@ -254,7 +254,7 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                         ),
                       ),
                       padding: const EdgeInsets.symmetric(
-                          vertical: 5.0, horizontal: 20.0),
+                          vertical: 5.0, horizontal: 16.0),
                       child: Row(
                         children: [
                           const Expanded(child: SizedBox()),
