@@ -136,34 +136,38 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                     children: [
                       Expanded(
                         flex: 3,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.black38),
-                            color: Colors.transparent,
-                            borderRadius: BorderRadius.circular(4.0),
-                          ),
-                          child: Row(
-                            children: [
-                              IconButton(
-                                onPressed: () {
-                                  _showDateTimePickerDialog(
-                                      true, DateSelection.today);
-                                },
-                                iconSize: 22.0,
-                                icon: const Icon(
-                                  Icons.calendar_today_outlined,
-                                  color: AppColors.primaryColor,
+                        child: GestureDetector(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.black38),
+                              color: Colors.transparent,
+                              borderRadius: BorderRadius.circular(4.0),
+                            ),
+                            child: Row(
+                              children: [
+                                const Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 16.0, horizontal: 10.0),
+                                  child: Icon(
+                                    Icons.calendar_today_outlined,
+                                    color: AppColors.primaryColor,
+                                    size: 22.0,
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                _selectedFromDate,
-                                style: const TextStyle(
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.w400,
+                                Text(
+                                  _selectedFromDate,
+                                  style: const TextStyle(
+                                    fontSize: 14.0,
+                                    fontWeight: FontWeight.w400,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
+                          onTap: () {
+                            _showDateTimePickerDialog(
+                                true, DateSelection.today);
+                          },
                         ),
                       ),
                       const Expanded(
@@ -176,34 +180,38 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                       ),
                       Expanded(
                         flex: 3,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.black38),
-                            color: Colors.transparent,
-                            borderRadius: BorderRadius.circular(4.0),
-                          ),
-                          child: Row(
-                            children: [
-                              IconButton(
-                                onPressed: () {
-                                  _showDateTimePickerDialog(
-                                      false, DateSelection.noDate);
-                                },
-                                iconSize: 22.0,
-                                icon: const Icon(
-                                  Icons.calendar_today_outlined,
-                                  color: AppColors.primaryColor,
+                        child: GestureDetector(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.black38),
+                              color: Colors.transparent,
+                              borderRadius: BorderRadius.circular(4.0),
+                            ),
+                            child: Row(
+                              children: [
+                                const Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 16.0, horizontal: 10.0),
+                                  child: Icon(
+                                    Icons.calendar_today_outlined,
+                                    color: AppColors.primaryColor,
+                                    size: 22.0,
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                _selectedToDate,
-                                style: const TextStyle(
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.w400,
+                                Text(
+                                  _selectedToDate,
+                                  style: const TextStyle(
+                                    fontSize: 14.0,
+                                    fontWeight: FontWeight.w400,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
+                          onTap: () {
+                            _showDateTimePickerDialog(
+                                false, DateSelection.noDate);
+                          },
                         ),
                       ),
                     ],
@@ -304,8 +312,16 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
             itemBuilder: (context, index) {
               return GestureDetector(
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Center(child: Text(roleTypes[index])),
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: Center(
+                    child: Text(
+                      roleTypes[index],
+                      style: const TextStyle(
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ),
                 ),
                 onTap: () {
                   setState(() {
