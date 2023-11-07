@@ -7,6 +7,8 @@ import 'package:employee_tracker/models/employee.dart';
 import 'package:employee_tracker/utils/app_colors.dart';
 import 'package:employee_tracker/utils/constants.dart';
 import 'package:employee_tracker/utils/utils.dart';
+import 'package:employee_tracker/widgets/custom_date_view.dart';
+import 'package:employee_tracker/widgets/custom_text_button.dart';
 import 'package:employee_tracker/widgets/custom_textfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -136,34 +138,8 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                     children: [
                       Expanded(
                         flex: 3,
-                        child: GestureDetector(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black38),
-                              color: Colors.transparent,
-                              borderRadius: BorderRadius.circular(4.0),
-                            ),
-                            child: Row(
-                              children: [
-                                const Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: 16.0, horizontal: 10.0),
-                                  child: Icon(
-                                    Icons.calendar_today_outlined,
-                                    color: AppColors.primaryColor,
-                                    size: 22.0,
-                                  ),
-                                ),
-                                Text(
-                                  _selectedFromDate,
-                                  style: const TextStyle(
-                                    fontSize: 14.0,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                        child: CustomDateView(
+                          selectedDate: _selectedFromDate,
                           onTap: () {
                             _showDateTimePickerDialog(
                                 true, DateSelection.today);
@@ -180,34 +156,8 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                       ),
                       Expanded(
                         flex: 3,
-                        child: GestureDetector(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black38),
-                              color: Colors.transparent,
-                              borderRadius: BorderRadius.circular(4.0),
-                            ),
-                            child: Row(
-                              children: [
-                                const Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: 16.0, horizontal: 10.0),
-                                  child: Icon(
-                                    Icons.calendar_today_outlined,
-                                    color: AppColors.primaryColor,
-                                    size: 22.0,
-                                  ),
-                                ),
-                                Text(
-                                  _selectedToDate,
-                                  style: const TextStyle(
-                                    fontSize: 14.0,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                        child: CustomDateView(
+                          selectedDate: _selectedToDate,
                           onTap: () {
                             _showDateTimePickerDialog(
                                 false, DateSelection.noDate);
@@ -234,52 +184,46 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                       child: Row(
                         children: [
                           const Expanded(child: SizedBox()),
-                          TextButton(
-                            style: ButtonStyle(
-                              foregroundColor: MaterialStateProperty.all<Color>(
-                                  AppColors.primaryColor),
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  const Color(0xffEDF8FF)),
-                            ),
+                          CustomTextButton(
+                            title: cancelButtonText,
+                            foregroundColor: AppColors.primaryColor,
+                            backgroundColor: const Color(0xffEDF8FF),
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            child: const Text(cancelButtonText),
                           ),
                           const SizedBox(width: 10.0),
-                          TextButton(
-                            style: ButtonStyle(
-                              foregroundColor: MaterialStateProperty.all<Color>(
-                                  Colors.white),
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  AppColors.primaryColor),
-                            ),
+                          CustomTextButton(
+                            title: saveButtonText,
+                            foregroundColor: Colors.white,
+                            backgroundColor: AppColors.primaryColor,
                             onPressed: () {
                               if (widget.employee != null) {
                                 BlocProvider.of<AddEmployeeDetailsScreenBloc>(
                                         context)
-                                    .add(UpdateEmployeeEvent(
-                                        id: widget.employee!.id!,
-                                        name:
-                                            _employeeNameController.text.trim(),
-                                        role:
-                                            _employeeRoleController.text.trim(),
-                                        fromDate: _selectedFromDate,
-                                        toDate: _selectedToDate));
+                                    .add(
+                                  UpdateEmployeeEvent(
+                                    id: widget.employee!.id!,
+                                    name: _employeeNameController.text.trim(),
+                                    role: _employeeRoleController.text.trim(),
+                                    fromDate: _selectedFromDate,
+                                    toDate: _selectedToDate,
+                                  ),
+                                );
                               } else {
                                 BlocProvider.of<AddEmployeeDetailsScreenBloc>(
                                         context)
-                                    .add(InsertEmployeeEvent(
-                                        name:
-                                            _employeeNameController.text.trim(),
-                                        role:
-                                            _employeeRoleController.text.trim(),
-                                        fromDate: _selectedFromDate,
-                                        toDate: _selectedToDate));
+                                    .add(
+                                  InsertEmployeeEvent(
+                                    name: _employeeNameController.text.trim(),
+                                    role: _employeeRoleController.text.trim(),
+                                    fromDate: _selectedFromDate,
+                                    toDate: _selectedToDate,
+                                  ),
+                                );
                               }
                             },
-                            child: const Text(saveButtonText),
-                          )
+                          ),
                         ],
                       ),
                     ),
