@@ -143,20 +143,6 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
             ),
           ),
           direction: DismissDirection.endToStart,
-          confirmDismiss: (direction) => showDialog(
-            context: context,
-            builder: ((context) => AlertDialog(
-                  content: const Text('Do you want to delete the employee?'),
-                  actions: [
-                    TextButton(
-                        onPressed: () => Navigator.of(context).pop(false),
-                        child: const Text('No')),
-                    TextButton(
-                        onPressed: () => Navigator.of(context).pop(true),
-                        child: const Text('Yes'))
-                  ],
-                )),
-          ),
           onDismissed: (direction) {
             _employeeListScreenBloc.add(
               DeleteEmployeeEvent(isCurrentEmployee: true, employee: item),
