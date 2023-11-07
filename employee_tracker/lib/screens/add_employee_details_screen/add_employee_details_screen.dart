@@ -7,6 +7,7 @@ import 'package:employee_tracker/models/employee.dart';
 import 'package:employee_tracker/utils/app_colors.dart';
 import 'package:employee_tracker/utils/constants.dart';
 import 'package:employee_tracker/utils/utils.dart';
+import 'package:employee_tracker/widgets/custom_textfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -98,63 +99,30 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: TextField(
+                  child: CustomTextField(
+                    hintText: employeeNameHintText,
                     controller: _employeeNameController,
-                    cursorColor: AppColors.primaryColor,
-                    style: const TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w400,
-                    ),
-                    decoration: const InputDecoration(
-                      hintText: employeeNameHintText,
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.black38,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.black38,
-                        ),
-                      ),
-                      prefixIcon: Icon(
-                        Icons.person_outline,
-                        color: AppColors.primaryColor,
-                      ),
+                    readOnly: false,
+                    prefixIcon: const Icon(
+                      Icons.person_outline,
+                      color: AppColors.primaryColor,
                     ),
                   ),
                 ),
                 const SizedBox(height: 20.0),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: TextField(
+                  child: CustomTextField(
+                    hintText: selectRoleHintText,
                     controller: _employeeRoleController,
-                    cursorColor: AppColors.primaryColor,
                     readOnly: true,
-                    style: const TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w400,
+                    prefixIcon: const Icon(
+                      CupertinoIcons.bag,
+                      color: AppColors.primaryColor,
                     ),
-                    decoration: const InputDecoration(
-                      hintText: selectRoleHintText,
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.black38,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.black38,
-                        ),
-                      ),
-                      prefixIcon: Icon(
-                        CupertinoIcons.bag,
-                        color: AppColors.primaryColor,
-                      ),
-                      suffixIcon: Icon(
-                        Icons.arrow_drop_down,
-                        color: AppColors.primaryColor,
-                      ),
+                    suffixIcon: const Icon(
+                      Icons.arrow_drop_down,
+                      color: AppColors.primaryColor,
                     ),
                     onTap: () {
                       showRolesBottomSheet();
