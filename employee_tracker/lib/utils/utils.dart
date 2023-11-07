@@ -39,6 +39,23 @@ String getDateForSelectedEnum(DateSelection selectedDate) {
   return selectedDateString;
 }
 
+DateSelection getEnumForSelectedDate(String selectedDate) {
+  if (selectedDate == getFormattedDateTime(DateTime.now())) {
+    return DateSelection.today;
+  } else if (selectedDate ==
+      getFormattedDateTime(DateTime.now().next(DateTime.monday))) {
+    return DateSelection.nextMonday;
+  } else if (selectedDate ==
+      getFormattedDateTime(DateTime.now().next(DateTime.tuesday))) {
+    return DateSelection.nextTuesday;
+  } else if (selectedDate ==
+      getFormattedDateTime(DateTime.now().next(DateTime.now().weekday))) {
+    return DateSelection.after1Week;
+  } else {
+    return DateSelection.empty;
+  }
+}
+
 extension DateTimeExtension on DateTime {
   DateTime next(int day) {
     if (day == weekday) {

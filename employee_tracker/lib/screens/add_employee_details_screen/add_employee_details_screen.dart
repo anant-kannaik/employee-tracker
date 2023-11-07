@@ -319,11 +319,9 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                                     : const Color(0xffEDF8FF),
                             onPressed: () {
                               setState(() {
-                                selectedButton = DateSelection.today;
-                                selectedDate =
-                                    getDateForSelectedEnum(selectedButton);
                                 dateRangePickerController.selectedDate =
-                                    getDateFromString(selectedDate);
+                                    getDateFromString(getDateForSelectedEnum(
+                                        DateSelection.today));
                               });
                             },
                           ),
@@ -342,11 +340,9 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                                     : const Color(0xffEDF8FF),
                             onPressed: () {
                               setState(() {
-                                selectedButton = DateSelection.nextMonday;
-                                selectedDate =
-                                    getDateForSelectedEnum(selectedButton);
                                 dateRangePickerController.selectedDate =
-                                    getDateFromString(selectedDate);
+                                    getDateFromString(getDateForSelectedEnum(
+                                        DateSelection.nextMonday));
                               });
                             },
                           ),
@@ -368,11 +364,9 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                                     : const Color(0xffEDF8FF),
                             onPressed: () {
                               setState(() {
-                                selectedButton = DateSelection.nextTuesday;
-                                selectedDate =
-                                    getDateForSelectedEnum(selectedButton);
                                 dateRangePickerController.selectedDate =
-                                    getDateFromString(selectedDate);
+                                    getDateFromString(getDateForSelectedEnum(
+                                        DateSelection.nextTuesday));
                               });
                             },
                           ),
@@ -391,11 +385,9 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                                     : const Color(0xffEDF8FF),
                             onPressed: () {
                               setState(() {
-                                selectedButton = DateSelection.after1Week;
-                                selectedDate =
-                                    getDateForSelectedEnum(selectedButton);
                                 dateRangePickerController.selectedDate =
-                                    getDateFromString(selectedDate);
+                                    getDateFromString(getDateForSelectedEnum(
+                                        DateSelection.after1Week));
                               });
                             },
                           ),
@@ -421,7 +413,7 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                                 selectedButton = DateSelection.noDate;
                                 selectedDate =
                                     getDateForSelectedEnum(selectedButton);
-                                // dateRangePickerController.selectedDate = null;
+                                dateRangePickerController.selectedDate = null;
                               });
                             },
                           ),
@@ -440,11 +432,9 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                                     : const Color(0xffEDF8FF),
                             onPressed: () {
                               setState(() {
-                                selectedButton = DateSelection.today;
-                                selectedDate =
-                                    getDateForSelectedEnum(selectedButton);
                                 dateRangePickerController.selectedDate =
-                                    getDateFromString(selectedDate);
+                                    getDateFromString(getDateForSelectedEnum(
+                                        DateSelection.today));
                               });
                             },
                           ),
@@ -459,13 +449,17 @@ class _AddEmployeeDetailsScreenState extends State<AddEmployeeDetailsScreen> {
                       controller: dateRangePickerController,
                       onSelectionChanged:
                           (dateRangePickerSelectionChangedArgs) {
-                        setState(() {
-                          selectedDate = getFormattedDateTime(
-                              dateRangePickerSelectionChangedArgs.value);
-                          // selectedButton = DateSelection.empty;
-                        });
+                        if (dateRangePickerSelectionChangedArgs.value != null) {
+                          setState(() {
+                            selectedDate = getFormattedDateTime(
+                                dateRangePickerSelectionChangedArgs.value);
+                            selectedButton =
+                                getEnumForSelectedDate(selectedDate);
+                          });
+                        }
                       },
                       selectionMode: DateRangePickerSelectionMode.single,
+                      allowViewNavigation: false,
                       maxDate: isFromDate
                           ? null
                           : DateTime
