@@ -126,7 +126,7 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
       child: Row(
         children: [
           Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(16.0),
             child: Text(
               title,
               style: const TextStyle(
@@ -146,7 +146,7 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
       child: const Row(
         children: [
           Padding(
-            padding: EdgeInsets.all(10.0),
+            padding: EdgeInsets.all(16.0),
             child: Text(
               swipeLeftToDeleteMessage,
               style: TextStyle(
@@ -174,7 +174,7 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
           background: Container(
             color: Colors.red,
             alignment: Alignment.centerRight,
-            padding: const EdgeInsets.only(right: 20),
+            padding: const EdgeInsets.only(right: 20.0),
             child: const Icon(
               CupertinoIcons.delete,
               color: Colors.white,
@@ -224,7 +224,7 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
           background: Container(
             color: Colors.red,
             alignment: Alignment.centerRight,
-            padding: const EdgeInsets.only(right: 20),
+            padding: const EdgeInsets.only(right: 20.0),
             child: const Icon(
               CupertinoIcons.delete,
               color: Colors.white,
